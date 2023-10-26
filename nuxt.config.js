@@ -1,13 +1,11 @@
-const path = require('path')
-
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'Vueform Nuxt 2 + Tailwind CSS 3 Boilerplate',
+    title: 'Medinize Community',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' },
+      { hid: 'description', name: 'description', content: 'Medinize Community, bringing accessible health care to the communities.' },
       { name: 'format-detection', content: 'telephone=no' }
     ],
     link: [
@@ -17,12 +15,14 @@ export default {
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
-    '@/assets/css/main.css',
+    '@/assets/css/main.css'
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    { src: '~/plugins/vueform.js', mode: 'client' }
+    { src: '~/plugins/toastr.js', mode: 'client' },
+    { src: '~/plugins/localstorage.client.js', mode: 'client' },
+    { src: '~/plugins/quillEditor.js', mode: 'client' }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -31,7 +31,7 @@ export default {
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     '@nuxtjs/moment',
-    '@nuxt/postcss8',
+    '@nuxt/postcss8'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -41,7 +41,8 @@ export default {
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
     // https://go.nuxtjs.dev/content
-    '@nuxt/content'
+    '@nuxt/content',
+    'vue2-editor/nuxt'
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -52,9 +53,20 @@ export default {
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
+    meta: {
+      title: 'Medinize Community',
+      author: 'Marquis'
+    },
     manifest: {
-      lang: 'en'
-    }
+      name: 'Medinize Community, bringing health care to the community.',
+      short_name: 'Medinize Community',
+      lang: 'en',
+    },
+  },
+  // or
+  layoutTransition: {
+    name: 'my-layouts',
+    mode: 'out-in'
   },
 
   // Content module configuration: https://go.nuxtjs.dev/config-content
@@ -65,8 +77,8 @@ export default {
     postcss: {
       plugins: {
         tailwindcss: {},
-        autoprefixer: {},
-      },
-    },
+        autoprefixer: {}
+      }
+    }
   }
 }

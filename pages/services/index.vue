@@ -7,12 +7,12 @@
 <script>
 export default {
   head: {
-    title: 'Community | Home',
+    title: 'Medinize Community | Services',
     meta: [
       {
         hid: 'description',
         name: 'description',
-        content: 'Home'
+        content: 'Community services'
       }
     ]
   }
