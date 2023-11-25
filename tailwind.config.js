@@ -4,19 +4,8 @@ module.exports = {
     "./layouts/**/*.vue",
     "./pages/**/*.vue",
     "./plugins/**/*.{js,ts}",
-    "./nuxt.config.{js,ts}",
-    './vueform.config.js',
-    './node_modules/@vueform/vueform/themes/tailwind/**/*.vue',
-    './node_modules/@vueform/vueform/themes/tailwind/**/*.js',
+    "./nuxt.config.{js,ts}"
   ],
-  theme: {
-    extend: {
-      form: (theme) => ({
-        primary: '#07BF9B',
-      })
-    },
-  },
-  plugins: [
-    require('@vueform/vueform/tailwind'),
-  ],
+  theme: {},
+  plugins: []
 }

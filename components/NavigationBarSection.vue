@@ -1,105 +1,155 @@
 <template>
-  <!--
-  Heads up! 👋
+  <main>
+    <header class="bg-gray-50 z-50">
+      <div class="px-4 py-2 pb-2 sm:px-6 lg:px-8 hidden md:block">
+        <div class="mt-8">
+          <p class="font-medium text-gray-900 mb-0!">
+            Hi Samuel Adewusi
+          </p>
 
-  Plugins:
-    - @tailwindcss/forms
--->
-
-  <header class="bg-gray-50 z-50">
-    <div class="mx-auto max-w-screen-xl px-4 py-2 pb-2 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-end gap-4">
-        <div class="flex items-center gap-4">
-          <div class="relative">
-            <label class="sr-only" for="search"> Search </label>
-
-            <input
-              id="search"
-              class="h-10 w-full rounded-full border-none bg-white pe-10 ps-4 text-sm shadow-sm sm:w-56"
-              type="search"
-              placeholder="Search website..."
-            >
-
-            <button
-              type="button"
-              class="absolute end-1 top-1/2 -translate-y-1/2 rounded-full bg-gray-50 p-2 text-gray-600 transition hover:text-gray-700"
-            >
-              <span class="sr-only">Search</span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-4 w-4"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                />
-              </svg>
-            </button>
-          </div>
-
-          <a
-            href="#"
-            class="block shrink-0 rounded-full bg-white p-2.5 text-gray-600 shadow-sm hover:text-gray-700"
-          >
-            <span class="sr-only">Notifications</span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
-              />
-            </svg>
-          </a>
+          <h1 class="text-2xl text-gray-900 font-medium">
+            Welcome Back!
+          </h1>
         </div>
-
-        <span
-          aria-hidden="true"
-          class="block h-6 w-px rounded-full bg-gray-200"
-        />
-
-        <a href="#" class="md:block shrink-0 hidden">
-          <span class="sr-only">Profile</span>
-          <img
-            alt="Man"
-            src="https://images.unsplash.com/photo-1600486913747-55e5470d6f40?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-            class="h-10 w-10 rounded-full object-cover"
-          >
-        </a>
+      </div>
+      <div class="flex justify-between items-center w-11/12 mx-auto md:hidden">
         <div>
-          <button @click="$emit('open')" class="md:hidden">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+          <button v-b-toggle.sidebar-1>
+            <img src="@/assets/icons/hamburger.svg" class="cursor-pointer" alt="logo">
           </button>
         </div>
+        <div>
+          <img src="@/assets/img/logo.png" class="h-20" alt="logo">
+        </div>
+        <div>
+          <img src="@/assets/icons/notifications.svg" class="bg-[#53B3DB] p-1 h-9 w-9 rounded-full" alt="logo">
+        </div>
       </div>
+    </header>
+    <b-sidebar
+      id="sidebar-1"
+      title="Sidebar"
+      shadow
+      no-header
+      width="500"
+      backdrop
+      z-index="1000"
+    >
+      <section class="pr-10">
+        <div>
+          <img src="@/assets/img/logo.png" class="h-20" alt="logo">
+        </div>
+        <div>
+          <ul class="mt-6 space-y-2">
+            <li v-for="(item, index) in sidebarItems" :key="index">
+              <nuxt-link
+                :to="item.path"
+                :class="[item.path === $route.path ? 'bg-green-100' : '']"
+                href=""
+                class="px-4 py-3 text-sm font-light text-gray-700 rounded-md flex justify-between items-center no-underline"
+              >
+                <div class="flex items-center gap-x-2">
+                  <img :src="require(`~/assets/icons/${item.icon}.svg`)" alt="">
+                  <span> {{ item.name }}</span>
+                </div>
+                <div v-if="item.name === 'Communities' || item.name === 'Notifications'" class="flex justify-center items-center rounded-full bg-red-500 h-6 w-6">
+                  <span class="text-white font-light text-center">2</span>
+                </div>
+              </nuxt-link>
+            </li>
+          </ul>
+        </div>
+        <div class="flex items-center gap-2 pl-10 hover:bg-gray-50" @click="handleLogout">
+          <div> <img src="@/assets/icons/logout.svg" alt=""></div>
 
-      <div class="mt-8">
-        <h1 class="text-2xl font-bold text-gray-900 sm:text-3xl">
-          Hi Chuks,
-        </h1>
-
-        <p class="mt-1.5 text-sm text-gray-500">
-          What would you like to share with the community today? 🚀
-        </p>
-      </div>
-    </div>
-  </header>
+          <p class="font-bold text-red-500 mt-2">
+            Sign Out
+          </p>
+        </div>
+      </section>
+    </b-sidebar>
+  </main>
 </template>
 
 <script>
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/src/sweetalert2.scss'
 export default {
-
+  data () {
+    return {
+      sidebarItems: [
+        {
+          name: 'Home',
+          icon: 'home',
+          path: '/'
+        },
+        {
+          name: 'Services',
+          icon: 'services',
+          path: '/services'
+        },
+        {
+          name: 'Appointment',
+          icon: 'appointments',
+          path: '/appointments'
+        },
+        {
+          name: 'Records',
+          icon: 'records',
+          path: '/records'
+        },
+        {
+          name: 'Medical Timeline',
+          icon: 'medical-timeline',
+          path: '/medical-timelines'
+        },
+        {
+          name: 'Order History',
+          icon: 'order-history',
+          path: '/order-history'
+        },
+        {
+          name: 'Wallet',
+          icon: 'wallet',
+          path: '/wallet'
+        },
+        {
+          name: 'Communities',
+          icon: 'communities',
+          path: '/communities'
+        },
+        {
+          name: 'Notifications',
+          icon: 'notifications',
+          path: '/notifications'
+        },
+        {
+          name: 'Settings',
+          icon: 'settings',
+          path: '/settings'
+        }
+      ]
+    }
+  },
+  methods: {
+    handleLogout () {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, logout!'
+      }).then((result) => {
+        if (result.value) {
+          window.open('https://medinize.netlify.app/', '_self')
+        } else {
+          this.$swal('Cancelled', "You're still logged in!", 'info')
+        }
+      })
+    }
+  }
 }
 </script>
 

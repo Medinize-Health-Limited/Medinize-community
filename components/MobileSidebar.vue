@@ -1,16 +1,26 @@
 <template>
   <div class="flex h-screen flex-col justify-between border-e bg-white bborder">
     <div class="px-4 py-6">
-    <div class="flex items-center justify-between">
-      <span
-      class="grid h-10 w-32 place-content-center pb-2"
-    >
-    <img src="~/assets/icons/logo.svg" alt="logout icon" />
-    </span>
-    <button @click="$emit('close')" class="font-bold text-gray-900 text-2xl">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-    </button>
-    </div>
+      <div class="flex items-center justify-between">
+        <span
+          class="grid h-10 w-32 place-content-center pb-2"
+        >
+          <img src="~/assets/icons/logo.svg" alt="logout icon">
+        </span>
+        <button class="font-bold text-gray-900 text-2xl" @click="$emit('close')">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#000000"
+            stroke-width="3"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          ><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
+        </button>
+      </div>
 
       <ul class="mt-6 space-y-2">
         <li v-for="(item, index) in sidebarItems" :key="index">
@@ -22,7 +32,7 @@
           >
             <div class="flex items-center gap-x-2">
               <img :src="require(`~/assets/icons/${item.icon}.svg`)" alt="">
-            <span> {{ item.name }}</span>
+              <span> {{ item.name }}</span>
             </div>
             <div v-if="item.name === 'Communities' || item.name === 'Notifications'" class="flex justify-center items-center rounded-full bg-red-500 h-6 w-6">
               <span class="text-white font-light text-center">2</span>
@@ -31,12 +41,12 @@
         </li>
       </ul>
 
-   <div class="pt-10 pl-3">
-    <button class="text-red-500 font-medium flex items-center gap-x-2">
-      <img src="~/assets/icons/logout.svg" alt="logout icon" />
-     <span> Logout</span>
-    </button>
-   </div>
+      <div class="pt-10 pl-3">
+        <button class="text-red-500 font-medium flex items-center gap-x-2" @click="handleLogout">
+          <img src="~/assets/icons/logout.svg" class="cursor-pointer" alt="logout icon" @click="handleLogout">
+          <span> Logout</span>
+        </button>
+      </div>
     </div>
 
     <div class="sticky inset-x-0 bottom-0 border-t border-gray-100">
@@ -59,6 +69,8 @@
   </div>
 </template>
 <script>
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/src/sweetalert2.scss'
 export default {
   data () {
     return {
@@ -117,7 +129,23 @@ export default {
     }
   },
   methods: {
-
+    handleLogout () {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, logout!'
+      }).then((result) => {
+        if (result.value) {
+          window.open('https://medinize.netlify.app/', '_self')
+        } else {
+          this.$swal('Cancelled', "You're still logged in!", 'info')
+        }
+      })
+    }
   }
 }
 </script>

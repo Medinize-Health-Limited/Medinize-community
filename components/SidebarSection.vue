@@ -1,23 +1,23 @@
 <template>
   <div class="flex h-screen flex-col justify-between border-e bg-white bborder">
-    <div class="px-4 py-6">
+    <div class="py-6">
       <span
-        class="grid h-10 w-32 place-content-center pb-2"
+        class="grid place-content-center pb-2"
       >
-      <img src="~/assets/icons/logo.svg" alt="logout icon" />
+        <img src="~/assets/img/logo.png" class="" alt="logout icon">
       </span>
 
-      <ul class="mt-6 space-y-2">
-        <li v-for="(item, index) in sidebarItems" :key="index">
+      <ul class="space-y-2">
+        <li v-for="(item, index) in sidebarItems" :key="index" class="pr-6">
           <nuxt-link
             :to="item.path"
             :class="[item.path === $route.path ? 'bg-green-100' : '']"
             href=""
-            class="px-4 py-3 text-sm font-light text-gray-700 rounded-md flex justify-between items-center"
+            class="px-4 py-3 text-sm font-light text-gray-700 rounded-md flex justify-between items-center no-underline"
           >
             <div class="flex items-center gap-x-2">
               <img :src="require(`~/assets/icons/${item.icon}.svg`)" alt="">
-            <span> {{ item.name }}</span>
+              <span> {{ item.name }}</span>
             </div>
             <div v-if="item.name === 'Communities' || item.name === 'Notifications'" class="flex justify-center items-center rounded-full bg-red-500 h-6 w-6">
               <span class="text-white font-light text-center">2</span>
@@ -26,12 +26,12 @@
         </li>
       </ul>
 
-   <div class="pt-10 pl-3">
-    <button class="text-red-500 font-medium flex items-center gap-x-2">
-      <img src="~/assets/icons/logout.svg" alt="logout icon" />
-     <span> Logout</span>
-    </button>
-   </div>
+      <div class="pt-6 ml-10">
+        <button class="text-red-500 font-medium flex items-center gap-x-2">
+          <img src="~/assets/icons/logout.svg" alt="logout icon">
+          <span> Logout</span>
+        </button>
+      </div>
     </div>
 
     <div class="sticky inset-x-0 bottom-0 border-t border-gray-100">

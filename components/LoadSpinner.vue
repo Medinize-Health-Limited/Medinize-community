@@ -1,14 +1,16 @@
 <template>
   <div class="splash-screen">
     <div class="spinner-wrapper">
-      <div class="spinner"></div>
+      <div class="spinner flex justify-center items-center">
+        <img src="@/assets/img/logo.png" class="h-[600px] w-[900px]" alt="logo">
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped>
 .splash-screen {
-  background: #f2f0ee;
+  background: #E6EDFE;
   width: 100vw;
   height: 100vh;
   position: fixed;
@@ -24,14 +26,14 @@
 }
 
 .spinner {
-  width: 80px;
-  height: 80px;
+  width: 500px;
+  height: 500px;
   margin: 100px auto;
-  background-color: #e45447;
+  background-color: white;
 
   border-radius: 100%;
-  -webkit-animation: sk-scaleout 1s infinite ease-in-out;
-  animation: sk-scaleout 1s infinite ease-in-out;
+  -webkit-animation: sk-scaleout 3s infinite ease-in-out;
+  animation: sk-scaleout 3s infinite ease-in-out;
 }
 
 @-webkit-keyframes sk-scaleout {
