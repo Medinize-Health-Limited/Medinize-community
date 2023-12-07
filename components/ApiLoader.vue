@@ -1,7 +1,17 @@
 <template>
-  <div class="flex justify-center items-center gap-x-2">
-    <div class="w-16 h-16 border-4 border-dashed rounded-full animate-spin dark:border-violet-400" />
-    <div class="w-16 h-16 border-4 border-dashed rounded-full animate-spin dark:border-violet-400" />
-    <div class="w-16 h-16 border-4 border-dashed rounded-full animate-spin dark:border-violet-400" />
+  <div class="">
+    <div class="rounded overflow-hidden shadow-lg animate-pulse">
+      <div class="bg-gray-200 h-72" />
+    </div>
   </div>
 </template>
+
+<script>
+export default {
+
+}
+</script>
+
+<style>
+
+</style>

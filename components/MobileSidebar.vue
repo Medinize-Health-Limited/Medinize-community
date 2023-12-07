@@ -58,10 +58,10 @@
         >
 
         <div>
-          <p class="text-xs">
-            <strong class="block font-medium">Michael Smith</strong>
+          <p v-if="user" class="text-xs">
+            <strong class="block font-medium">{{ user?.first_name }} {{ user?.last_name }}</strong>
 
-            <span>michaelsmith12@gmail.com</span>
+            <span>{{ user?.email }}</span>
           </p>
         </div>
       </a>
@@ -74,58 +74,65 @@ import 'sweetalert2/src/sweetalert2.scss'
 export default {
   data () {
     return {
+      user: null,
       sidebarItems: [
         {
           name: 'Home',
           icon: 'home',
-          path: '/'
+          path: '/dashboard'
         },
         {
           name: 'Services',
           icon: 'services',
-          path: '/services'
+          path: '/dashboard/services'
         },
         {
           name: 'Appointment',
           icon: 'appointments',
-          path: '/appointments'
+          path: '/dashboard/appointments'
         },
         {
           name: 'Records',
           icon: 'records',
-          path: '/records'
+          path: '/dashboard/records'
         },
         {
           name: 'Medical Timeline',
           icon: 'medical-timeline',
-          path: '/medical-timelines'
+          path: '/dashboard/medical-timelines'
         },
         {
           name: 'Order History',
           icon: 'order-history',
-          path: '/order-history'
+          path: '/dashboard/order-history'
         },
         {
           name: 'Wallet',
           icon: 'wallet',
-          path: '/wallet'
+          path: '/dashboard/wallet'
         },
         {
           name: 'Communities',
           icon: 'communities',
-          path: '/communities'
+          path: '/dashboard/communities'
         },
         {
           name: 'Notifications',
           icon: 'notifications',
-          path: '/notifications'
+          path: '/dashboard/notifications'
         },
         {
           name: 'Settings',
           icon: 'settings',
-          path: '/settings'
+          path: '/dashboard/settings'
         }
       ]
+    }
+  },
+  mounted () {
+    this.user = window.localStorage.getItem('user')
+    if (this.user === null) {
+      this.$router.push('/')
     }
   },
   methods: {

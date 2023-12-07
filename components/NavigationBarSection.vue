@@ -3,8 +3,11 @@
     <header class="bg-gray-50 z-50">
       <div class="px-4 py-2 pb-2 sm:px-6 lg:px-8 hidden md:block">
         <div class="mt-8">
-          <p class="font-medium text-gray-900 mb-0!">
-            Hi Samuel Adewusi
+          <p v-if="user" class="font-medium text-gray-900 mb-0!">
+            Hi {{ user?.first_name }} {{ user?.last_name }}
+          </p>
+          <p v-else class="font-medium text-gray-900 mb-0!">
+            Hi
           </p>
 
           <h1 class="text-2xl text-gray-900 font-medium">
@@ -77,59 +80,63 @@ import 'sweetalert2/src/sweetalert2.scss'
 export default {
   data () {
     return {
+      user: null,
       sidebarItems: [
         {
           name: 'Home',
           icon: 'home',
-          path: '/'
+          path: '/dashboard'
         },
         {
           name: 'Services',
           icon: 'services',
-          path: '/services'
+          path: '/dashboard/services'
         },
         {
           name: 'Appointment',
           icon: 'appointments',
-          path: '/appointments'
+          path: '/dashboard/appointments'
         },
         {
           name: 'Records',
           icon: 'records',
-          path: '/records'
+          path: '/dashboard/records'
         },
         {
           name: 'Medical Timeline',
           icon: 'medical-timeline',
-          path: '/medical-timelines'
+          path: '/dashboard/medical-timelines'
         },
         {
           name: 'Order History',
           icon: 'order-history',
-          path: '/order-history'
+          path: '/dashboard/order-history'
         },
         {
           name: 'Wallet',
           icon: 'wallet',
-          path: '/wallet'
+          path: '/dashboard/wallet'
         },
         {
           name: 'Communities',
           icon: 'communities',
-          path: '/communities'
+          path: '/dashboard/communities'
         },
         {
           name: 'Notifications',
           icon: 'notifications',
-          path: '/notifications'
+          path: '/dashboard/notifications'
         },
         {
           name: 'Settings',
           icon: 'settings',
-          path: '/settings'
+          path: '/dashboard/settings'
         }
       ]
     }
+  },
+  mounted () {
+    this.fetchUser()
   },
   methods: {
     handleLogout () {
@@ -148,6 +155,9 @@ export default {
           this.$swal('Cancelled', "You're still logged in!", 'info')
         }
       })
+    },
+    fetchUser () {
+      this.user = JSON.parse(window.localStorage.getItem('user'))
     }
   }
 }

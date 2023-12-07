@@ -1,15 +1,15 @@
 <template>
   <main>
     <section class="pb-20">
-      <section class="md:flex items-start gap-x-16 mt-10 space-y-20 md:space-y-0">
-        <div class="md:w-6/12 space-y-6">
+      <section class="lg:flex items-start gap-x-16 mt-10 space-y-20 md:space-y-0">
+        <div class="lg:w-6/12 space-y-6">
           <form class="border rounded-md p-6 space-y-4 bg-white" @submit.prevent="createNewPost">
             <h1 class="font-medium text-lg">
               Create Post
             </h1>
-            <div class="w-full">
+            <!-- <div class="w-full">
               <input v-model="form.title" type="text" placeholder="Enter post title" class="border outline-none w-full py-2.5 rounded-md px-3">
-            </div>
+            </div> -->
             <div>  <textarea v-model="form.content" placeholder="Enter post description here" class="border outline-none w-full p-3 rounded-md resize-none" rows="4" cols="4" /></div>
             <div class="flex justify-end items-end pr-3">
               <button class="text-white bg-green-600 text-base rounded-full py-2.5 w-3/12">
@@ -18,7 +18,7 @@
             </div>
           </form>
           <div class="overflow-y-auto space-y-6 h-[400px]">
-            <div v-if="posts" class="space-y-6 w-full">
+            <div v-if="!loadingPosts" class="space-y-6 w-full">
               <div v-for="(x, i) in posts" :key="i" class="rounded-md border-[0.4px] bg-white flex p-4 space-x-6 w-full">
                 <div class="w-full space-y-6">
                   <h1 class="font-medium text-sm">
@@ -51,23 +51,14 @@
                 </div>
               </div>
             </div>
-            <div v-if="!posts">
-              <p class="text-center">
-                No post available
-              </p>
-            </div>
-            <div v-else-if="errorMessage === 'Network Error'" class="grid place-content-center place-items-center bg-white h-48 w-full py-32">
-              <p>No post available</p>
-            </div>
-            <div v-if="loadingPosts" class="grid place-content-center place-items-center  h-48 w-full space-y-3 bg-white py-32">
-              <api-loader />
-              <p class="text-sm text-gray-500 font-medium">
-                Loading posts..
-              </p>
+            <div v-else class="bg-white place-items-center p-6 w-full space-y-3">
+              <div class="rounded overflow-hidden shadow-lg animate-pulse border border-gray-600">
+                <div class="bg-gray-200 h-72" />
+              </div>
             </div>
           </div>
         </div>
-        <div class="rounded-md bg-white border  md:w-6/12 space-y-6">
+        <div class="rounded-md bg-white border  lg:w-6/12 space-y-6">
           <div class="flex justify-between items-center px-4 pt-4">
             <h1 class="text-lg tracking-wider">
               Explore  Communities
@@ -113,11 +104,8 @@
             <div v-else-if="errorMessage === 'Network Error'" class="grid place-content-center place-items-center  h-48 w-full">
               <p>No Communities available</p>
             </div>
-            <div v-else class="grid place-content-center place-items-center  h-48 w-full space-y-2">
+            <div v-else class="p-6">
               <api-loader />
-              <p class="text-sm text-gray-500 font-medium">
-                Fetching communities...
-              </p>
             </div>
           </div>
         </div>

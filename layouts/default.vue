@@ -3,7 +3,7 @@
     <LoadSpinner v-if="showHideSpinner" />
     <div class="relative w-full bg-[#E6EDFE]">
       <div class="flex flex-col md:flex-row">
-        <div class="md:w-2/12 h-full md:sticky top-0 hidden md:flex">
+        <div class="md:w-2/12 h-full md:sticky top-0 hidden lg:flex">
           <SidebarSection />
         </div>
         <div class="w-10/12 h-full w-full">
@@ -54,12 +54,18 @@ export default {
     setTimeout(() => {
       this.showHideSpinner = false
     }, 3000)
+    const user = window.localStorage.getItem('user')
+    if (user === null) {
+      this.$router.push('/')
+    }
   },
   created () {
-    // adds the event listener function that will handle the event
     this.$nuxt.$on('toggle', () => {
       this.showHideSpinner = false
     })
+  },
+  beforeDestroy () {
+    this.$nuxt.$off('toggle')
   },
   methods: {
     closeMobileSidebar () {
@@ -68,10 +74,6 @@ export default {
     openMobileSidebar () {
       this.toggleSidebar = true
     }
-  },
-  beforeDestroy () {
-    // removes event listener
-    this.$nuxt.$off('toggle')
   }
 }
 </script>
