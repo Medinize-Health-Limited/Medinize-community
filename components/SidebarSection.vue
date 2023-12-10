@@ -1,5 +1,5 @@
 <template>
-  <div class="flex h-screen flex-col justify-between border-e bg-white bborder">
+  <div class="flex h-screen flex-col justify-between border-e bg-white">
     <div class="py-6">
       <span
         class="grid place-content-center pb-2"
@@ -15,7 +15,7 @@
             href=""
             class="px-4 py-3 text-sm font-light text-gray-700 rounded-md flex justify-between items-center no-underline"
           >
-            <div class="flex items-center gap-x-2">
+            <div class="flex items-center gap-x-2 w-[100%]">
               <img :src="require(`~/assets/icons/${item.icon}.svg`)" alt="">
               <span> {{ item.name }}</span>
             </div>
@@ -53,6 +53,8 @@
     </div>
   </div>
 </template>
+
+
 <script>
 export default {
   data () {
@@ -69,7 +71,7 @@ export default {
           path: '/services'
         },
         {
-          name: 'Appointment',
+          name: 'Appointments',
           icon: 'appointments',
           path: '/appointments'
         },

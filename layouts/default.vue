@@ -3,10 +3,10 @@
     <LoadSpinner v-if="showHideSpinner" />
     <div class="relative w-full bg-[#E6EDFE]">
       <div class="flex flex-col md:flex-row">
-        <div class="md:w-2/12 h-full md:sticky top-0 hidden md:flex">
+        <div class="md:w-2.5/12 h-full md:sticky top-0 hidden md:flex">
           <SidebarSection />
         </div>
-        <div class="w-10/12 h-full w-full">
+        <div class="w-9.5/12 h-full w-full">
           <navigation-bar-section class="" @open="openMobileSidebar" />
           <div class="md:px-10 px-3">
             <nuxt />
