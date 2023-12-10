@@ -38,7 +38,7 @@
     <div class="space-y-3 w-full">
       <label class="text-gray-700 text-sm font-medium">Select meeting type</label>
       <div>
-        <select class="py-3 pl-3 border-[0.9px] bg-gray-50 outline-none rounded-md shadow-sm w-full">
+        <select class="py-3 px-3 border-[0.9px] bg-gray-50 outline-none rounded-md shadow-sm w-full">
           <option value="">
             Select meeting type
           </option>

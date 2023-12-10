@@ -51,7 +51,7 @@
                             <h1 class="text-gray-700 font-medium text-xs md:text-base tracking-wide">
                               {{ upcomingAppointment.physician }}
                             </h1>
-                            <p class="text-gray-500 font-medium text-xs">
+                            <p class="text-gray-500 text-xs">
                               {{ upcomingAppointment.physicianPosition }}
                             </p>
                           </div>

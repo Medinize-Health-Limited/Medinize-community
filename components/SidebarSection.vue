@@ -1,13 +1,13 @@
 <template>
   <div class="flex h-screen flex-col justify-between border-e bg-white">
-    <div class="py-6">
+    <div class="">
       <span
         class="grid place-content-center pb-2"
       >
-        <img src="~/assets/img/logo.png" class="" alt="logout icon">
+        <img src="~/assets/img/logo.png" class="-ml-8" alt="logout icon">
       </span>
 
-      <ul class="space-y-2">
+      <ul class="-mt-4">
         <li v-for="(item, index) in sidebarItems" :key="index" class="pr-6">
           <nuxt-link
             :to="item.path"
@@ -26,7 +26,7 @@
         </li>
       </ul>
 
-      <div class="pt-6 ml-10">
+      <div class="ml-14">
         <button class="text-red-500 font-medium flex items-center gap-x-2">
           <img src="~/assets/icons/logout.svg" alt="logout icon">
           <span> Logout</span>
