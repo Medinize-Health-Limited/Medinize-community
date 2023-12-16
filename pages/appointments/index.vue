@@ -1,5 +1,6 @@
 <template>
-  <main class="space-y-6 my-10 lg:w-5/12 bg-white rounded-md p-6 lg:p-10">
+  <div class="md:flex md:flex-row md:justify-between md:items-center md:space-x-8">
+    <main class="space-y-6 my-10 lg:w-5/12 bg-white rounded-md p-6 lg:p-10">
     <div class="space-y-3">
       <label class="text-gray-700 text-sm font-medium">Select the sign/symptoms/observation that best describe you below</label>
       <div class="w-full">
@@ -56,7 +57,14 @@
         Send request
       </button>
     </div>
-  </main>
+    </main>
+
+    <div class="hidden md:block w-7/12 space-y-16">
+      <img src="@/assets/img/physical.jpg" class="rounded"/>
+      <img src="@/assets/img/virtual.jpg" class="rounded"/>
+    </div>
+  </div>
+  
 </template>
 
 <script>
