@@ -25,7 +25,7 @@
         </div>
       </nuxt-link>
 
-      <nuxt-link to="#" class="cursor-pointer border-[0.4px] rounded-md shadow-sm bg-white no-underline">
+      <nuxt-link to="/ambulance" class="cursor-pointer border-[0.4px] rounded-md shadow-sm bg-white no-underline">
         <div class="flex justify-center items-center flex-col space-y-4 rounded-lg bg-white p-6 ring-gray-50 h-full">
           <div><img class="h-14 w-14" src="@/assets/icons/book.svg" alt=""></div>
           <h3 class="text-center text-gray-800 font-medium text-lg tracking-tight">
