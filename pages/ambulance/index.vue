@@ -95,24 +95,47 @@
             
             
         </main>
-        <div class="md:w-7/12 border md:mt-6 mt-6 space-y-6">
-            <div>
-                <h2 class="text-center">First Aid Tips</h2>
+        <div class="md:w-7/12 md:mt-14 mt-6 space-y-6">
+            <div class="flex flex-row justify-between items-center w-[10rem] md:w-[10rem] mx-auto">
+                <h5 class="text-center">First Aid Tips</h5>
+                <img src="@/assets/img/first-aid.png" class="h-6 w-6 -mt-2"/>
             </div>
-            <div v-for="(treatment, id) in treatments" :key="id" class="">
-                <div class="flex flex-row justify-between items-center">
+
+            <p class="text-gray-500">The general rule to remember in first aid situations is to prioritize safety. Call for help, Keep calm and provide basic care.</p>
+            <!-- <div v-for="(treatment, id) in treatments" :key="id" class="">
+                <div v-for="(button, index) in buttons" :key="index" class="flex flex-row justify-between items-center">
                     <h6>{{ treatment.title }}</h6>
-                    <div class='controls cursor-pointer'>
-                        <img class="plus h-3 w-3" src="@/assets/img/plus.png"  />
-                        <img class="minus h-3 w-3" src="@/assets/img/minus.png"  />
-                    </div>
-                    
+                    <button @click="toggleContent(index)">
+                        <i :class="isOpen[index] ? 'minus-icon' : 'plus-icon'"></i>
+                    </button>    
                 </div>
-                <div class="mb-3">
+                <div v-if="isOpen[index]" class="mb-3">
                     <span class="font-medium">Step one: </span>
-                    <span class="">{{ treatment.urgent }}</span>
+                    <span class="">{{ treatment[index].urgent }}</span>
                 </div>
-                <p class="leading-7">{{ treatment.description }}</p>
+                <p class="leading-7">{{ treatment[index].description }}</p>
+            </div> -->
+            
+            <div class="space-y-6">
+                <div class="p-4 bg-white rounded-sm shadow-sm" v-for="(button, index) in buttons" :key="index">
+                    <div class="flex flex-row justify-between items-center">
+                        <h6>{{ treatments[index].title }}</h6>
+                        <button @click="toggleContent(index)">
+                            <i :class="isOpen[index] ? 'minus-icon' : 'plus-icon'"></i>
+                        </button>
+                    </div>
+                    <div v-if="isOpen[index]">
+                        <!-- Content to show/hide for this button -->
+                        <div class="mb-3">
+                            <span class="font-medium">Step one: </span>
+                            <span class="">{{ treatments[index].urgent }}</span>
+                        </div>
+                        <p class="leading-7">
+                            {{ treatments[index].description }}
+                        </p>
+                        
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -123,16 +146,18 @@
 export default {
     data() {
         return {
+            isOpen: [true],
+            buttons: ['Button 1', 'Button 2', 'Button 3', 'Button 4', 'Button 5'],
             treatments: [
                 {
                     title: 'CPR',
                     urgent:'Phone/Request for an ambulance immediately',
-                    description: 'If an adult is unconscious and not breathing, make sure they are flat on their back and then place the heel of one hand in the centre of their chest and your other hand on top. Press down firmly and smoothly (compressing to one third of their chest depth) 30 times. Give two breaths. To get the breath in, tilt their head back gently by lifting their chin. Pinch their nostrils closed, place your open mouth firmly over their open mouth and blow firmly into their mouth. Keep going with the 30 compressions and two breaths at the speed of approximately five repeats in two minutes until you hand over to the ambulance officers or another trained person, or until the person you are resuscitating responds. The method for CPR for children under eight and babies is very similar and you can learn these skills in a CPR course'
+                    description: 'If an adult is unconscious and not breathing, make sure they are flat on their back and then place the heel of one hand in the centre of their chest and your other hand on top. Press down firmly and smoothly (compressing to one third of their chest depth) 30 times. Give two breaths. To get the breath in, tilt their head back gently by lifting their chin. Pinch their nostrils closed, place your open mouth firmly over their open mouth and blow firmly into their mouth. Keep going with the 30 compressions and two breaths at the speed of approximately five repeats in two minutes until you hand over to the ambulance officers or another trained person, or until the person you are resuscitating responds. The method for CPR for children under eight and babies is similar.'
                 },
                 {
                     title: 'Asthma',
                     urgent:'Phone/Request for an ambulance immediately',
-                    description: 'Sit the person upright. Give 4 separate puffs of blue/grey reliever puffer. Shake puffer. Put 1 puff into spacer. Take 4 breaths from spacer. Repeat until 4 puffs have been taken. Remember: shake, 1 puff, 4 breaths OR give 2 separate doses of a Bricanyl inhaler (age 6 & over) or a Symbicort inhaler (over 12)'
+                    description: 'Sit the person upright. Give 4 separate puffs of blue/grey reliever puffer. Shake puffer. Put 1 puff into spacer. Take 4 breaths from spacer. Repeat until 4 puffs have been taken. Remember: shake, 1 puff, 4 breaths OR give 2 separate doses of a Bricanyl inhaler (age 6 & over) or a Symbicort inhaler (over 12).'
                 },
                 {
                     title: 'Severe allergic reactions',
@@ -156,29 +181,35 @@ export default {
         
     },
     methods: {
-        
+        toggleContent(index) {
+            this.isOpen[index] = !this.isOpen[index];
+        }
     }
 }
 </script>
 
 <style scoped>
-    .controls {
+    /* .controls {
         position: relative;
-        /* border: 1px red solid; */
     }
 
     .plus {
         position: relative;
-        /* z-index: 1; */
-        /* opacity: 0; */
         border: 1px blue solid;
     }
 
     .minus {
         position: absolute;
         top: -.1rem;
-        opacity: 0;
         border: 1px red solid;
+    } */
+
+    .plus-icon:before {
+        content: "+";
+    }
+
+    .minus-icon:before {
+        content: "-";
     }
 
     
