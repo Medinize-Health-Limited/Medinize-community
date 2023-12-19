@@ -1,5 +1,6 @@
 <template>
-  <main class="space-y-6 my-10 lg:w-5/12 bg-white rounded-md p-6 lg:p-10">
+  <div class="md:flex md:flex-row md:justify-between md:items-center md:space-x-8">
+    <main class="space-y-6 my-10 lg:w-5/12 bg-white rounded-md p-6 lg:p-10">
     <div class="space-y-3">
       <label class="text-gray-700 text-sm font-medium">Select the sign/symptoms/observation that best describe you below</label>
       <div class="w-full">
@@ -38,7 +39,7 @@
     <div class="space-y-3 w-full">
       <label class="text-gray-700 text-sm font-medium">Select meeting type</label>
       <div>
-        <select class="py-3 pl-3 border-[0.9px] bg-gray-50 outline-none rounded-md shadow-sm w-full">
+        <select class="py-3 px-3 border-[0.9px] bg-gray-50 outline-none rounded-md shadow-sm w-full">
           <option value="">
             Select meeting type
           </option>
@@ -56,7 +57,14 @@
         Send request
       </button>
     </div>
-  </main>
+    </main>
+
+    <div class="hidden md:block w-7/12 space-y-16">
+      <img src="@/assets/img/physical.jpg" class="rounded"/>
+      <img src="@/assets/img/virtual.jpg" class="rounded"/>
+    </div>
+  </div>
+  
 </template>
 
 <script>

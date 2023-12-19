@@ -1,13 +1,13 @@
 <template>
-  <div class="flex h-screen flex-col justify-between border-e bg-white bborder">
-    <div class="py-6">
+  <div class="flex h-screen flex-col justify-between border-e bg-white">
+    <div class="">
       <span
         class="grid place-content-center pb-2"
       >
-        <img src="~/assets/img/logo.png" class="" alt="logout icon">
+        <img src="~/assets/img/logo.png" class="-ml-8" alt="logout icon">
       </span>
 
-      <ul class="space-y-2">
+      <ul class="-mt-4">
         <li v-for="(item, index) in sidebarItems" :key="index" class="pr-6">
           <nuxt-link
             :to="item.path"
@@ -15,7 +15,7 @@
             href=""
             class="px-4 py-3 text-sm font-light text-gray-700 rounded-md flex justify-between items-center no-underline"
           >
-            <div class="flex items-center gap-x-2">
+            <div class="flex items-center gap-x-2 w-[100%]">
               <img :src="require(`~/assets/icons/${item.icon}.svg`)" alt="">
               <span> {{ item.name }}</span>
             </div>
@@ -26,7 +26,7 @@
         </li>
       </ul>
 
-      <div class="pt-6 ml-10">
+      <div class="ml-14">
         <button class="text-red-500 font-medium flex items-center gap-x-2">
           <img src="~/assets/icons/logout.svg" alt="logout icon">
           <span> Logout</span>
@@ -53,6 +53,8 @@
     </div>
   </div>
 </template>
+
+
 <script>
 export default {
   data () {
@@ -70,7 +72,7 @@ export default {
           path: '/dashboard/services'
         },
         {
-          name: 'Appointment',
+          name: 'Appointments',
           icon: 'appointments',
           path: '/dashboard/appointments'
         },

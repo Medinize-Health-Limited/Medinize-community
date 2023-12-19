@@ -2,7 +2,7 @@
   <main class="space-y-8 pt-6">
     <div>
       <button class="text-white bg-gray-600 rounded-full font-medium text-xs px-3 py-2.5" @click="goBack">
-        Bo Back
+        Go Back
       </button>
     </div>
     <main class="flex justify-between gap-10">
