@@ -14,7 +14,6 @@
             </div>
             <div>
               <h4 class="font-medium text-3xl">
-                <!-- Cancer -->
                 {{ communityIdUniqueKey ?? 'N/A' }}
               </h4>
               <p class="text-xs font-light">
@@ -65,10 +64,10 @@
               </p>
               <div class="flex items-center gap-x-3 justify-end">
                 <p class="flex items-center font-semibold gap-x-2">
-                  {{ itm.likes }}  <img src="~/assets/img/like.png" alt="" class="h-4 w-4">
+                  {{ itm.likes }}  <img src="~/assets/img/like.png" alt="" class="h-4 w-4 cursor-pointer" @click="handleLikePost(itm)">
                 </p>
                 <p class="flex items-center font-semibold gap-x-2">
-                  {{ itm.views }} <img src="~/assets/icons/view.svg" alt="" class="h-4 w-4">
+                  {{ itm.views }} <img src="~/assets/icons/view.svg" alt="" class="h-4 w-4 cursor-pointer" @click="handleViewPost(itm)">
                 </p>
               </div>
             </div>
@@ -80,11 +79,6 @@
             </div>
           </div>
         </div>
-        <!-- <div v-if="!posts">
-          <p class="text-center">
-            No post available
-          </p>
-        </div> -->
         <div v-else-if="errorMessage === 'Network Error'" class="grid place-content-center place-items-center bg-white h-48 w-full py-32">
           <p>  No post available</p>
         </div>
@@ -100,12 +94,8 @@
 </template>
 
 <script>
-import { loadGroupCommunityById } from '@/services/post'
-// import { VueEditor } from 'vue2-editor'
+import { loadGroupCommunityById, likePost, viewPost } from '@/services/post'
 export default {
-  components: {
-    // VueEditor
-  },
   data () {
     return {
       loadingPosts: false,
@@ -173,6 +163,26 @@ export default {
         return 'Yesterday'
       } else {
         return `${days} day${days > 1 ? 's' : ''} ago`
+      }
+    },
+    async handleLikePost (itm) {
+      try {
+        const response = await likePost(itm.id)
+        this.posts = response?.data?.posts
+      } catch (error) {
+        console.log(error)
+      } finally {
+        this.loadingPosts = false
+      }
+    },
+    async handleViewPost (itm) {
+      try {
+        const response = await viewPost(itm.id)
+        this.posts = response?.data?.posts
+      } catch (error) {
+        console.log(error)
+      } finally {
+        this.loadingPosts = false
       }
     }
   }

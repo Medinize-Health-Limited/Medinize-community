@@ -1,5 +1,5 @@
 import axios from 'axios'
-const token = '8505bbc4645e715088cffa91de905bd7118f355a'
+const token = JSON.parse(localStorage.getItem('user')).token
 const config = {
   headers: { Authorization: 'Token ' + token }
 }

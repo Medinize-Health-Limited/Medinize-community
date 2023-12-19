@@ -10,7 +10,7 @@
             <!-- <div class="w-full">
               <input v-model="form.title" type="text" placeholder="Enter post title" class="border outline-none w-full py-2.5 rounded-md px-3">
             </div> -->
-            <div>  <textarea v-model="form.content" placeholder="Enter post description here" class="border outline-none w-full p-3 rounded-md resize-none" rows="4" cols="4" /></div>
+            <div>  <textarea v-model="form.content" placeholder="how are you feeling today?" class="border outline-none w-full p-3 rounded-md resize-none" rows="4" cols="4" /></div>
             <div class="flex justify-end items-end pr-3">
               <button class="text-white bg-green-600 text-base rounded-full py-2.5 w-3/12">
                 Post
@@ -72,7 +72,7 @@
 
           <div class="overflow-y-auto">
             <div v-if="communitiesGroups.length" class="h-[650px]">
-              <div v-for="(item, index) in communitiesGroups" :key="index" class="flex border-t justify-between items-center p-6 border-b">
+              <div v-for="(item, index) in newArray" :key="index" class="flex border-t justify-between items-center p-6 border-b">
                 <div>
                   <h3 class="text-sm font-bold">
                     {{ item?.name }}
@@ -80,12 +80,12 @@
                   <h3 class="text-sm leading-relaxed font-light w-10/12">
                     {{ item?.description.length > 100 ? `${item?.description.slice(140)}...` : item?.description }}
                   </h3>
-                  <button class="py-2 rounded-md text-green-500 font-medium text-sm" @click="joinCommunity(item)">
+                  <button v-if="item.visibility" class="py-2 rounded-md text-green-500 font-medium text-sm" @click="joinCommunity(item)">
                     {{ processingJoining ? 'processing..' : 'Join Community' }}
                   </button>
                 </div>
                 <div>
-                  <button @click="viewCommunity(item)">
+                  <nuxt-link :to="`/dashboard/communities/${item.unique_id}`">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="29"
@@ -97,7 +97,7 @@
                       stroke-linecap="round"
                       stroke-linejoin="round"
                     ><path d="M9 18l6-6-6-6" /></svg>
-                  </button>
+                  </nuxt-link>
                 </div>
               </div>
             </div>
@@ -175,6 +175,7 @@
 
 <script>
 import { createPost, getPosts, getCommunities, createCommunityGroup, joinGroupCommunity } from '@/services/post'
+import { loadPersonalInfo } from '@/services/auth'
 // import { VueEditor } from 'vue2-editor'
 export default {
   components: {
@@ -182,6 +183,8 @@ export default {
   },
   data () {
     return {
+      userGroups: [],
+      comparismArray: [],
       communityForm: {
         name: '',
         description: ''
@@ -216,10 +219,20 @@ export default {
   computed: {
     isCommuniesformEmpty () {
       return !!(this.communityForm.name && this.communityForm.description)
+    },
+    newArray () {
+      return this.communitiesGroups.map((item) => {
+        if (this.userGroups.includes(item.name)) {
+          return { ...item, visibility: false }
+        } else {
+          return { ...item, visibility: true }
+        }
+      })
     }
   },
   mounted () {
     this.init()
+    this.loadUser()
   },
   methods: {
     async createPost () {
@@ -237,6 +250,7 @@ export default {
     init () {
       this.loadCommunities()
       this.loadPosts()
+      this.loadUserInfo()
     },
     async loadCommunities () {
       this.loadingCommunities = true
@@ -341,6 +355,22 @@ export default {
     },
     viewCommunity (item) {
       this.$router.push(`/communities/${item.unique_id}`)
+    },
+    loadUser () {
+      const parsed = JSON.parse(localStorage.getItem('user'))
+      const userStr = parsed?.groups.split(',')
+      this.userGroups = userStr
+    },
+    async loadUserInfo () {
+      this.loadingCommunities = true
+      try {
+        const response = await loadPersonalInfo()
+        console.log(response, 'response')
+      } catch (error) {
+        console.log(error)
+      } finally {
+        // this.loadingCommunities = false
+      }
     }
   }
 }

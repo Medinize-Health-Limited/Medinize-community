@@ -25,9 +25,12 @@
           </div>
         </div>
         <div class="lg:hidden bg-[#0A8525FC] rounded-lg relative">
-          <h1 class="text-white text-center text-2xl pt-4">Medical Tip</h1>
+          <h1 class="text-white text-center text-2xl pt-4">
+            Medical Tip
+          </h1>
           <ssr-carousel
             show-dots
+            :autoplay-delay="15"
             loop
             class="md:w-10/12 w-11/12 mx-auto rounded-lg bg-[#0A8525FC]"
           >
@@ -59,7 +62,8 @@
       </div>
       <div class="space-y-6 sticky top-0 pb-10">
         <div href="#" class="relative block overflow-hidden rounded-lg bg-white border border-gray-100">
-          <calender-section />
+          <!-- <calender-section /> -->
+          <updated-calendar />
         </div>
 
         <div href="#" class="relative block overflow-hidden rounded-lg border bg-white border-gray-100">
@@ -112,10 +116,14 @@
 
 <script>
 import SsrCarousel from 'vue-ssr-carousel'
-import ssrCarouselCss from 'vue-ssr-carousel/index.css'
-import CalenderSection from '../../components/CalenderSection.vue'
+// import ssrCarouselCss from 'vue-ssr-carousel/index.css'
+// import CalenderSection from '@/components/CalenderSection.vue'
+import UpdatedCalendar from '@/components/UpdatedCalender.vue'
 export default {
-  components: { CalenderSection, SsrCarousel },
+  components: {
+    // CalenderSection,
+    SsrCarousel, UpdatedCalendar
+  },
   data () {
     return {
       carousels: [
