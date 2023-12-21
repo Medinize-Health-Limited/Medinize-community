@@ -29,12 +29,12 @@
       <div class="ml-14">
         <button class="text-red-500 font-medium flex items-center gap-x-2">
           <img src="~/assets/icons/logout.svg" alt="logout icon">
-          <span> Logout</span>
+          <span> Logout </span>
         </button>
       </div>
     </div>
 
-    <div class="sticky inset-x-0 bottom-0 border-t border-gray-100">
+    <!-- <div class="sticky inset-x-0 bottom-0 border-t border-gray-100">
       <a href="#" class="flex items-center gap-2 bg-white p-4 hover:bg-gray-50">
         <img
           alt="Man"
@@ -42,15 +42,14 @@
           class="h-10 w-10 rounded-full object-cover"
         >
 
-        <div>
+        <div class="">
           <p v-if="user" class="text-xs">
             <strong class="block font-medium">{{ user?.first_name }} {{ user?.last_name }}</strong>
-
             <span>{{ user?.email }}</span>
           </p>
         </div>
       </a>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -119,6 +118,7 @@ export default {
     if (this.user === null) {
       this.$router.push('/')
     }
+    // this.fetchUser()
   }
 }
 </script>

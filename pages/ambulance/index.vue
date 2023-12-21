@@ -1,7 +1,7 @@
 <template>
     <div class="md:flex md:flex-row md:justify-between md:space-x-6 py-3">
         <main class="md:w-5/12">
-            <nuxt-link to="/services" class="mb-6">
+            <nuxt-link to="/dashboard/services" class="mb-6">
                 <button class="text-white bg-gray-600 rounded-full font-medium text-xs px-3 py-2.5 mb-6">
                     Go Back
                 </button>

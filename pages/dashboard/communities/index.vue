@@ -20,20 +20,15 @@
                       </p>
                       <div class="flex items-center gap-x-3 justify-end">
                         <p class="flex items-center font-semibold gap-x-2">
-                          {{ itm.likes }}  <img src="~/assets/img/like.png" alt="" class="h-4 w-4">
+                          {{ itm.likes }} <img src="~/assets/img/like.png" alt="" class="h-4 w-4">
                         </p>
-                        <p class="flex items-center font-semibold gap-x-2">
-                          {{ itm.views }} <img src="~/assets/icons/view.svg" alt="" class="h-4 w-4">
-                        </p>
-                        <p v-if="itm.replies" @click="initApp()" id="reply-count" class="flex items-center font-semibold gap-x-2 cursor-pointer">
-                          {{ itm.replies.length }}
-                          <span class="-ml-1" v-if="itm.replies.length <= 1">
-                            reply
-                          </span>
-                          <span class="-ml-1 cursor-pointer" v-if="itm.replies.length > 1">
-                            replies
-                          </span>
-                        </p>
+
+                        <div v-if="itm.replies" id="reply-count" class="flex items-center font-semibold gap-x-2 cursor-pointer">
+                          <p class="flex items-center font-semibold gap-x-2">
+                            {{ itm.replies.length }} <img src="~/assets/icons/view.svg" alt="" class="h-4 w-4">
+                          </p>
+                        </div>
+
                       </div>
                     </div>
                     <div v-for="(item, index) in itm.replies" :key="index" id="replies" class="rounded-md border-[0.4px] p-3">
@@ -42,10 +37,13 @@
                         {{ formatTimeElapsed(item.created_at) }}
                       </p>
                     </div>
-                    <div class="w-[100%] flex flex-row justify-between items-center">
-                      <input type="text" placeholder="Type a reply" class="w-[78%] border outline-none w-full py-2.5 rounded-md px-3">
-                      <button class="w-[20%] bg-green-600 text-white rounded text-sm py-[0.8rem] px-3">Reply</button>
-                    </div>
+
+                    <form class="w-[100%] flex flex-row justify-between items-center" @submit.prevent="createReply">
+                      <input v-model="form.content" type="text" placeholder="Type a reply" class="w-[73%] border outline-none w-full py-2.5 rounded-md px-3">
+                      <button :disabled="processing" class="w-[20%] bg-green-600 text-white rounded text-sm py-[0.8rem] px-3">
+                        {{ processing ? 'loading' : 'Reply' }}
+                      </button>
+                    </form>
                   </div>
                 </div>
               </div>
@@ -62,7 +60,7 @@
             <h1 class="text-lg tracking-wider">
               Explore  Communities
             </h1>
-            <div>
+            <div v-if="user?.is_staff || user?.is_superuser">
               <button class="bg-yellow-700 py-2.5 md:px-4 px-3 text-sm text-white rounded-md" @click="$bvModal.show('createCommunity')">
                 Create Community
               </button>
@@ -72,12 +70,13 @@
           <div class="overflow-y-auto">
             <div v-if="communitiesGroups.length" class="h-[460px]">
               <div v-for="(item, index) in communitiesGroups" :key="index" class="flex border-t justify-between items-center p-6 border-b">
+                                
                 <div>
                   <h3 class="text-sm font-bold">
                     {{ item?.name }}
                   </h3>
                   <h3 class="text-sm leading-relaxed font-light w-10/12">
-                    {{ item?.description.length > 100 ? `${item?.description.slice(140)}...` : item?.description }}
+                    {{ item?.description }}
                   </h3>
                   <button v-if="item.visibility" class="py-2 rounded-md text-green-500 font-medium text-sm" @click="joinCommunity(item)">
                     {{ processingJoining ? 'processing..' : 'Join Community' }}
@@ -98,6 +97,7 @@
                     ><path d="M9 18l6-6-6-6" /></svg>
                   </nuxt-link>
                 </div>
+               
               </div>
             </div>
             <div v-else-if="errorMessage === 'Network Error'" class="grid place-content-center place-items-center  h-48 w-full">
@@ -173,7 +173,7 @@
 </template>
 
 <script>
-import { createPost, getPosts, getCommunities, createCommunityGroup, joinGroupCommunity } from '@/services/post'
+import { createPost, getPosts, getCommunities, createCommunityGroup, joinGroupCommunity, handlePostReply } from '@/services/post'
 import { loadPersonalInfo } from '@/services/auth'
 // import { VueEditor } from 'vue2-editor'
 export default {
@@ -182,6 +182,9 @@ export default {
   },
   data () {
     return {
+      processing: false,
+      communityIdUniqueKey: '',
+      user: null,
       userGroups: [],
       comparismArray: [],
       communityForm: {
@@ -189,9 +192,7 @@ export default {
         description: ''
       },
       form: {
-        title: '',
         content: '',
-        community_group: ''
       },
       processingJoining: false,
       errorMessage: '',
@@ -232,6 +233,10 @@ export default {
   mounted () {
     this.init()
     this.loadUser()
+    this.user = window.localStorage.getItem('user')
+    if (this.user === null) {
+      this.$router.push('/')
+    }
   },
   methods: {
     async createPost () {
@@ -273,7 +278,7 @@ export default {
         }
         if (error.message === 'Network Error') {
           this.errorMessage = error.message
-          this.$toastr.e('Please check your internt connectivity')
+          this.$toastr.e('Please check your internet connectivity')
         }
       } finally {
         this.loadingPosts = false

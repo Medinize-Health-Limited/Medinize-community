@@ -3,7 +3,7 @@
     <LoadSpinner v-if="showHideSpinner" />
     <div class="relative w-full bg-[#E6EDFE]">
       <div class="flex flex-col md:flex-row">
-        <div class="md:w-2/12 h-full md:sticky top-0 hidden lg:flex">
+        <div class="md:w-2.5/12 h-full md:sticky top-0 hidden lg:flex">
           <SidebarSection />
         </div>
         <div class="w-9.5/12 h-full w-full">

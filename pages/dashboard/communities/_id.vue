@@ -28,7 +28,7 @@
             <button class="text-white bg-green-600 py-2 text-xs w-24 rounded-lg">
               All posts
             </button>
-            <p class="text-xs font-medium">
+            <p class="text-xs font-medium mt-3">
               About Community
             </p>
           </div>
@@ -39,13 +39,10 @@
               <h1 class="font-medium text-lg">
                 Create Post
               </h1>
-              <div class="w-full">
-                <input v-model="form.title" type="text" placeholder="Enter post title" class="border outline-none w-full py-2.5 rounded-md px-3">
-              </div>
-              <div>  <textarea v-model="form.content" placeholder="Enter post description here" class="border outline-none w-full p-3 rounded-md resize-none" rows="10" cols="10" /></div>
+              <div>  <textarea v-model="form.content" placeholder="Enter post" class="border outline-none w-full p-3 rounded-md resize-none" rows="10" cols="10" /></div>
               <div class="flex justify-end items-end py-3 pr-3">
-                <button class="text-white bg-green-600 text-base rounded-full py-2.5 w-3/12">
-                  Post
+                <button :disabled="processing" class="text-white bg-green-600 text-base rounded-full py-2.5 w-3/12">
+                  {{ processing ? 'loading' : 'Post' }}
                 </button>
               </div>
             </form>
@@ -56,9 +53,6 @@
         <div v-if="posts" class="space-y-6 w-full bg-white p-6 rounded-md">
           <div v-for="(itm, idx) in posts" :key="idx" class="text font-light w-full space-y-4">
             <div class="p-3 rounded-md border-[0.4px]">
-              <p class="font-medium">
-                {{ itm.title }}
-              </p>
               <p class="font-medium">
                 {{ itm.content }}
               </p>
@@ -94,11 +88,13 @@
 </template>
 
 <script>
-import { loadGroupCommunityById, likePost, viewPost } from '@/services/post'
+import { loadGroupCommunityById, likePost, viewPost, createPost } from '@/services/post'
+import errorVue from '../../../layouts/error.vue'
 export default {
   data () {
     return {
       loadingPosts: false,
+      processing: false,
       communityIdUniqueKey: '',
       posts: null,
       form: {
@@ -183,6 +179,21 @@ export default {
         console.log(error)
       } finally {
         this.loadingPosts = false
+      }
+    },
+    async createNewPost () {
+      this.processing = true
+      try{
+        const payload = {
+          ...this.form, "community_group": this.communityIdUniqueKey
+        } 
+        const response = await createPost(payload)
+        // this.posts = response?.data?.posts
+        console.log(response)
+      } catch (err) {
+        console.log(err)
+      } finally {
+        this.processing = false
       }
     }
   }

@@ -13,7 +13,7 @@
               Consult our Doctors now
             </div>
             <div>
-              <nuxt-link to="/appointments" class="text-[#0A7D08] no-underline mt-6 text-sm rounded-md font-semibold px-3 bg-white py-2.5 w-6/12 md:w-3/12">
+              <nuxt-link to="/dashboard/appointments" class="text-[#0A7D08] no-underline mt-6 text-sm rounded-md font-semibold px-3 bg-white py-2.5 w-6/12 md:w-3/12">
                 Consult a Doctor
               </nuxt-link>
             </div>
@@ -78,13 +78,13 @@
                   src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80"
                   class="h-10 w-10 rounded-full object-cover shadow-sm"
                 >
-                <div>
-                  <p class="font-medium">
+                <div class="h-10">
+                  <p class="text-sm font-medium mb-0">
                     Dr. Chuks
                   </p>
-                  <p class="italic font-light">
+                  <span class="italic text-sm font-light">
                     New Message....
-                  </p>
+                  </span>
                 </div>
               </div>
               <div>
@@ -103,7 +103,7 @@
           <div class="sm:flex sm:justify-between sm:gap-4">
             <div>
               <h3 class="text-[#1E1E1E] font-normal text-center leading-loose text-[14px]">
-                Description: Proper handwashing, using soap and water for at least 20 seconds, is a vital tool in
+                <strong>Description:</strong> Proper handwashing, using soap and water for at least 20 seconds, is a vital tool in
                 preventing infections. Keep your hands clean to protect yourself and others.
               </h3>
             </div>

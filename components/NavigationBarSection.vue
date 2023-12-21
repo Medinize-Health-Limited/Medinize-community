@@ -4,7 +4,7 @@
       <div class="px-4 py-2 pb-2 sm:px-6 lg:px-8 hidden md:block">
         <div class="mt-8">
           <p v-if="user" class="font-medium text-gray-900 mb-0!">
-            Hi {{ user?.first_name }} {{ user?.last_name }}
+            Hi {{ user?.first_name }} {{ user?.last_name }},
           </p>
           <p v-else class="font-medium text-gray-900 mb-0!">
             Hi

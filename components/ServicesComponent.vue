@@ -1,7 +1,7 @@
 <template>
   <main class="md:pr-10 w-11/12 mx-auto md:w-full pb-6 md:pb-0">
     <section class="grid sm:grid-col-1 md:grid-cols-2 lg:grid-cols-4 sm:gap-8 gap-6 items-stretch mt-10">
-      <nuxt-link to="/appointments" class="cursor-pointer border-[0.4px] rounded-md shadow-sm bg-white no-underline">
+      <nuxt-link to="/dashboard/appointments" class="cursor-pointer border-[0.4px] rounded-md shadow-sm bg-white no-underline">
         <div class="flex justify-center items-center flex-col space-y-4 rounded-lg bg-white p-6 ring-gray-50 h-full">
           <div><img class="h-14 w-14" src="@/assets/icons/consult.svg" alt=""></div>
           <h3 class="text-center text-gray-800 font-medium text-lg tracking-tight">
