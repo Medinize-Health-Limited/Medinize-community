@@ -17,6 +17,7 @@
                         class="py-3 pl-3 border-[0.9px] bg-gray-50 outline-none rounded-md shadow-sm w-full"
                     >
                     <img class="absolute right-[1rem] top-[1.3rem] cursor-pointer" @click="handleInput" src="@/assets/img/search.png"/>
+                    {{ lat }}, {{ lng }}
                 </div>
             
                 <p class="mt-10 text-gray-500 text-[1rem]">Not sure? Select a facility and proximity, let's help you locate the closest facility to you.</p>
@@ -57,15 +58,18 @@
         </main>
 
 
-        <div class="md:w-7/12 border md:mt-0 mt-6" ref="map">
-            <p class="text-center">Map shows here</p>
+        <div class="md:w-7/12 border md:mt-0 mt-6 h-[280px]" ref="map">
+            <!-- <p class="text-center">Map shows here</p> -->
+
         </div>
     </div>
     
 </template>
 
 <script>
+
 export default {
+
     data() {
         return {
             type: "",
@@ -94,6 +98,10 @@ export default {
                 }
             )
         },
+
+
+
+
         // find closest facility
         findCloseFacility() {
             const URL = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=
@@ -115,6 +123,8 @@ export default {
                     console.log(error.message)
                 });
         },
+
+        
         // add map
         addLocationsToGoogleMaps() {
             var map = new google.maps.Map(this.$refs["map"], {
@@ -147,7 +157,7 @@ export default {
                 });
             })
         }
-    }
+    },
 }
 </script>
 

@@ -10,7 +10,8 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Poppins&display=swap' }
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Poppins&display=swap' },
+      { rel: "stylesheet", href: "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css", integrity: "sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=", crossorigin: "" }
     ]
   },
   ssr: false,
@@ -28,9 +29,10 @@ export default {
     {
       src: '~/plugins/tawk-messenger.client.js',
       mode: 'client'
-    }
+    },
     // { src: '~/plugins/localstorage.client.js', mode: 'client' },
     // { src: '~/plugins/quillEditor.js', mode: 'client' }
+    { src: '~plugins/leaflet.js', ssr: false }
   ],
 
   bootstrapVue: {

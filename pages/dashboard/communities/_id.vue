@@ -89,7 +89,7 @@
 
 <script>
 import { loadGroupCommunityById, likePost, viewPost, createPost } from '@/services/post'
-import errorVue from '../../../layouts/error.vue'
+// import errorVue from '../../../layouts/error.vue'
 export default {
   data () {
     return {
