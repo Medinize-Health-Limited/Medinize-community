@@ -11,7 +11,12 @@ export default {
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Poppins&display=swap' },
-      { rel: "stylesheet", href: "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css", integrity: "sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=", crossorigin: "" }
+      { rel: 'stylesheet', href: 'https://unpkg.com/leaflet-geosearch@3.0.0/dist/geosearch.css' }
+    ],
+    script: [
+      {
+        src: 'https://unpkg.com/leaflet-geosearch@3.0.0/dist/geosearch.umd.js'
+      }
     ]
   },
   ssr: false,
@@ -54,6 +59,7 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
+    'nuxt-leaflet',
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
     // https://go.nuxtjs.dev/pwa
