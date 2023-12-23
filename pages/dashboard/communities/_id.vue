@@ -5,8 +5,8 @@
         Go Back
       </button>
     </div>
-    <main class="flex justify-between gap-10">
-      <div class="w-6/12">
+    <main class="md:flex md:justify-between md:gap-10">
+      <div class="md:w-6/12">
         <div class="space-y-6 bg-orange-100 p-6 rounded-md">
           <div class="flex items-center gap-x-6">
             <div>
@@ -39,7 +39,7 @@
               <h1 class="font-medium text-lg">
                 Create Post
               </h1>
-              <div>  <textarea v-model="form.content" placeholder="how are you feeling today?" class="border outline-none w-full p-3 rounded-md resize-none" rows="10" cols="10" /></div>
+              <div>  <textarea v-model="form.content" placeholder="what would you like to share with the community today?" class="border outline-none w-full p-3 rounded-md resize-none" rows="10" cols="10" /></div>
               <div class="flex justify-end items-end py-3 pr-3">
                 <button :disabled="!isFormEmpty" class="text-white disabled:opacity-25 disabled:cursor-not-allowed bg-green-600 text-base rounded-full py-2.5 w-3/12">
                   {{ processing ? 'loading' : 'Post' }}
@@ -49,7 +49,7 @@
           </div>
         </section>
       </div>
-      <div class="overflow-y-auto space-y-6 w-6/12 h-[700px]">
+      <div class="overflow-y-auto space-y-6 md:w-6/12 h-[700px]">
         <div v-if="posts" class="space-y-6 w-full bg-white p-6 rounded-md">
           <div v-for="(itm, idx) in posts" :key="idx" class="text font-light w-full space-y-4">
             <div class="p-3 rounded-md border-[0.4px]">
@@ -74,7 +74,7 @@
           </div>
         </div>
         <div v-else-if="errorMessage === 'Network Error'" class="grid place-content-center place-items-center bg-white h-48 w-full py-32">
-          <p>  No post available</p>
+          <p> No post available</p>
         </div>
         <div v-if="loadingPosts" class="grid place-content-center place-items-center  h-48 w-full space-y-3 bg-white py-32">
           <api-loader />

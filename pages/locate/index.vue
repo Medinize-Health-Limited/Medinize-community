@@ -1,90 +1,13 @@
 <template>
-  <div class="md:flex md:flex-row md:justify-between md:items-center">
+  <div class="md:flex md:flex-row md:justify-between">
     <main class="md:w-5/12">
-      <nuxt-link to="/dashboard/services" class="mt-3 mb-6">
+      <nuxt-link to="/dashboard/services" class="mb-6">
         <button class="text-white bg-gray-600 rounded-full font-medium text-xs px-3 py-2.5 mt-3 mb-6">
           Go Back
         </button>
       </nuxt-link>
 
-      <!-- <div class="bg-white rounded-md p-6 lg:p-10">
-        <div class="relative">
-          <input
-            v-model="coordinates"
-            value="facility"
-            type="text"
-            placeholder="Enter facility name..."
-            class="py-3 pl-3 border-[0.9px] bg-gray-50 outline-none rounded-md shadow-sm w-full"
-          >
-          <img class="absolute right-[1rem] top-[1.3rem] cursor-pointer" src="@/assets/img/search.png" @click="handleInput">
-          {{ lat }}, {{ lng }}
-        </div>
-
-        <p class="mt-10 text-gray-500 text-[1rem]">
-          Not sure? Select a facility and proximity, let's help you locate the closest facility to you.
-        </p>
-
-        <div class="facility-radius flex flex-row justify-between items-center space-x-3">
-          <div class="facility w-full">
-            <select v-model="type" class="w-[100%] py-3 px-3 border-[0.9px] bg-gray-50 outline-none rounded-md shadow-sm">
-              <option class="" value="">
-                Select facility
-              </option>
-              <option class="" value="hospital">
-                Hospital
-              </option>
-              <option class="" value="pharmacy">
-                Pharmacy
-              </option>
-              <option class="" value="clinic">
-                Clinic
-              </option>
-              <option class="" value="laboratory">
-                Laboratory
-              </option>
-            </select>
-          </div>
-
-          <div class="radius w-full">
-            <select v-model="radius" class="w-[100%] py-3 px-3 border-[0.9px] bg-gray-50 outline-none rounded-md shadow-sm">
-              <option value="">
-                Select radius
-              </option>
-              <option value="5">
-                5 KM
-              </option>
-              <option value="10">
-                10 KM
-              </option>
-              <option value="15">
-                15 KM
-              </option>
-              <option value="20">
-                20 KM
-              </option>
-            </select>
-          </div>
-        </div>
-
-
-        <button class="bg-[#086406] text-white py-[.8em] px-3 mt-4 rounded w-full" @click="findCloseFacility">
-          Search
-        </button>
-        <div class="" style="max-height: 500px; overflow: scroll;">
-          <div v-for="place in places" :key="place.id" class="item">
-            <div class="content">
-              <div class="header">
-                {{ place.name }}
-              </div>
-              <div class="meta">
-                {{ place.vicinity }}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> -->
-
-    <div class="bg-white rounded-md p-6 lg:p-10">
+    <div class="bg-white rounded-md py-3 lg:pr-10">
       <p class=" text-gray-500 text-[1rem]">Let's help you locate the closest facility to you.</p>
       <div class="relative">
           <input

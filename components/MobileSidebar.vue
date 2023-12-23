@@ -34,8 +34,8 @@
               <img :src="require(`~/assets/icons/${item.icon}.svg`)" alt="">
               <span> {{ item.name }}</span>
             </div>
-            <div v-if="item.name === 'Communities' || item.name === 'Notifications'" class="flex justify-center items-center rounded-full bg-red-500 h-6 w-6">
-              <span class="text-white font-light text-center">2</span>
+            <div v-if="item.name === 'Communities'" class="flex justify-center items-center rounded-full bg-red-500 h-6 w-6">
+              <span class="text-white font-light text-center">{{ communitiesGroups ? communitiesGroups.length : '0' }}</span>
             </div>
           </nuxt-link>
         </li>
@@ -49,7 +49,7 @@
       </div>
     </div>
 
-    <div class="sticky inset-x-0 bottom-0 border-t border-gray-100">
+    <!-- <div class="sticky inset-x-0 bottom-0 border-t border-gray-100">
       <a href="#" class="flex items-center gap-2 bg-white p-4 hover:bg-gray-50">
         <img
           alt="Man"
@@ -65,7 +65,7 @@
           </p>
         </div>
       </a>
-    </div>
+    </div> -->
   </div>
 </template>
 <script>

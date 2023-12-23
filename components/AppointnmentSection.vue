@@ -127,7 +127,7 @@
                     </div>
                   </main>
                   <div style="background-color : #FFFF" class="py-3 px-6 flex justify-between items-center">
-                    <p class="text-sm text-teal-700 tracking-wider">
+                    <p class="text-xs md:text-sm text-teal-700 tracking-wider">
                       See all Appointments
                     </p>
                     <p class="cursor-pointer">
