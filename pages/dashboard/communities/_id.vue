@@ -39,9 +39,9 @@
               <h1 class="font-medium text-lg">
                 Create Post
               </h1>
-              <div>  <textarea v-model="form.content" placeholder="Enter post" class="border outline-none w-full p-3 rounded-md resize-none" rows="10" cols="10" /></div>
+              <div>  <textarea v-model="form.content" placeholder="how are you feeling today?" class="border outline-none w-full p-3 rounded-md resize-none" rows="10" cols="10" /></div>
               <div class="flex justify-end items-end py-3 pr-3">
-                <button :disabled="processing" class="text-white bg-green-600 text-base rounded-full py-2.5 w-3/12">
+                <button :disabled="!isFormEmpty" class="text-white disabled:opacity-25 disabled:cursor-not-allowed bg-green-600 text-base rounded-full py-2.5 w-3/12">
                   {{ processing ? 'loading' : 'Post' }}
                 </button>
               </div>
@@ -116,6 +116,11 @@ export default {
       }
     ]
   },
+  computed: {
+    isFormEmpty () {
+      return !!this.form.content
+    }
+  },
   mounted () {
     this.$nuxt.$emit('toggle')
     this.loadCommunityById()
@@ -165,6 +170,8 @@ export default {
       try {
         const response = await likePost(itm.id)
         this.posts = response?.data?.posts
+        this.$toastr.s('success!')
+        this.loadCommunityById()
       } catch (error) {
         console.log(error)
       } finally {
@@ -175,6 +182,8 @@ export default {
       try {
         const response = await viewPost(itm.id)
         this.posts = response?.data?.posts
+        this.$toastr.s('success!')
+        this.loadCommunityById()
       } catch (error) {
         console.log(error)
       } finally {
@@ -183,15 +192,16 @@ export default {
     },
     async createNewPost () {
       this.processing = true
-      try{
+      try {
         const payload = {
-          ...this.form, "community_group": this.communityIdUniqueKey
-        } 
-        const response = await createPost(payload)
-        // this.posts = response?.data?.posts
-        console.log(response)
+          ...this.form, community_group: this.communityIdUniqueKey
+        }
+        await createPost(payload)
+        this.$toastr.s('New post was saved successfully.')
+        this.form.content = ''
+        this.loadCommunityById()
       } catch (err) {
-        console.log(err)
+        this.$toastr.e(err)
       } finally {
         this.processing = false
       }

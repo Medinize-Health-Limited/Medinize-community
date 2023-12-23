@@ -1,57 +1,56 @@
 <template>
   <main>
     <section class="pb-20">
-      <section class="md:flex items-start gap-x-16 mt-10 space-y-20 md:space-y-0">
-        <div class="md:w-6/12 space-y-6">
+      <section class="lg:flex items-start gap-x-16 mt-10 space-y-20 md:space-y-0">
+        <div class="lg:w-6/12 space-y-6">
           <div class="overflow-y-auto space-y-6 h-[550px]">
-            <div v-if="posts" class="space-y-6 w-full">
+            <div v-if="posts.length" class="space-y-6 w-full">
               <div v-for="(x, i) in posts" :key="i" class="rounded-md border-[0.4px] bg-white flex p-4 space-x-6 w-full">
                 <div class="w-full space-y-6">
                   <h1 class="font-light text-sm">
                     {{ x.name }}
                   </h1>
-                  <div v-for="(itm, idx) in x.posts" :key="idx" class="text font-light w-full space-y-4">
-                    <div class="rounded-md">
-                      <!-- <p class="font-medium">
-                        {{ itm.title }}
-                      </p> -->
-                      <p class="font-medium">
-                        {{ itm.content }}
-                      </p>
-                      <div class="flex items-center gap-x-3 justify-end">
-                        <p class="flex items-center font-semibold gap-x-2">
-                          {{ itm.likes }} <img src="~/assets/img/like.png" alt="" class="h-4 w-4">
+                  <div class="space-y-10">
+                    <div v-for="(itm, idx) in x.posts" :key="idx" class="text font-light w-full space-y-4 border border-green-200 p-3">
+                      <div class="rounded-md">
+                        <p class="font-medium">
+                          {{ itm.content }}
                         </p>
-
-                        <div v-if="itm.replies" id="reply-count" class="flex items-center font-semibold gap-x-2 cursor-pointer">
+                        <div class="flex items-center gap-x-3 justify-end">
                           <p class="flex items-center font-semibold gap-x-2">
-                            {{ itm.replies.length }} <img src="~/assets/icons/view.svg" alt="" class="h-4 w-4">
+                            {{ itm.likes }} <img src="~/assets/img/like.png" alt="" class="h-4 w-4 cursor-pointer">
                           </p>
-                        </div>
 
+                          <div v-if="itm.replies" id="reply-count" class="flex items-center font-semibold gap-x-2 cursor-pointer">
+                            <p class="flex items-center font-semibold gap-x-2">
+                              {{ itm.replies.length }} <img src="~/assets/icons/view.svg" alt="" class="h-4 w-4 cursor-pointer">
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      <div v-for="(item, index) in itm.replies" id="replies" :key="index" class="rounded-md border-[0.4px] p-3">
+                        <p class="text-gray-900">{{ item.content }}</p>
+                        <p class="text-sm flex justify-end items-end">
+                          {{ formatTimeElapsed(item.created_at) }}
+                        </p>
+                      </div>
+
+                      <div class="w-[100%] flex flex-row justify-between items-center">
+                        <input v-model="replies[itm.id]" type="text" placeholder="Type a reply" class="w-[73%] border outline-none w-full py-2.5 rounded-tl-md rounded-bl-md px-3">
+                        <button :disabled="processing" class="w-[20%] bg-green-600 text-white rounded-tr-md rounded-br-md text-sm py-[0.8rem] px-3" @click="replyToPost(itm.id)">
+                          {{ processing_reply ? 'loading' : 'Reply' }}
+                        </button>
                       </div>
                     </div>
-                    <div v-for="(item, index) in itm.replies" :key="index" id="replies" class="rounded-md border-[0.4px] p-3">
-                      <p>{{ item.content }}</p>
-                      <p class="text-sm flex justify-end items-end">
-                        {{ formatTimeElapsed(item.created_at) }}
-                      </p>
-                    </div>
-
-                    <form class="w-[100%] flex flex-row justify-between items-center" @submit.prevent="createReply">
-                      <input v-model="form.content" type="text" placeholder="Type a reply" class="w-[73%] border outline-none w-full py-2.5 rounded-md px-3">
-                      <button :disabled="processing" class="w-[20%] bg-green-600 text-white rounded text-sm py-[0.8rem] px-3">
-                        {{ processing ? 'loading' : 'Reply' }}
-                      </button>
-                    </form>
                   </div>
                 </div>
               </div>
             </div>
-            <div v-else class="bg-white place-items-center p-6 w-full space-y-3">
-              <div class="rounded overflow-hidden shadow-lg animate-pulse border border-gray-600">
-                <div class="bg-gray-200 h-72" />
-              </div>
+            <div v-else-if="errorMessage === 'Network Error'" class="grid place-content-center place-items-center  h-48 w-full">
+              <p>No Communities available</p>
+            </div>
+            <div v-else class="p-6">
+              <api-loader />
             </div>
           </div>
         </div>
@@ -70,7 +69,6 @@
           <div class="overflow-y-auto">
             <div v-if="communitiesGroups.length" class="h-[460px]">
               <div v-for="(item, index) in communitiesGroups" :key="index" class="flex border-t justify-between items-center p-6 border-b">
-                                
                 <div>
                   <h3 class="text-sm font-bold">
                     {{ item?.name }}
@@ -97,7 +95,6 @@
                     ><path d="M9 18l6-6-6-6" /></svg>
                   </nuxt-link>
                 </div>
-               
               </div>
             </div>
             <div v-else-if="errorMessage === 'Network Error'" class="grid place-content-center place-items-center  h-48 w-full">
@@ -183,7 +180,9 @@ export default {
   data () {
     return {
       processing: false,
+      processing_reply: false,
       communityIdUniqueKey: '',
+      replies: {},
       user: null,
       userGroups: [],
       comparismArray: [],
@@ -192,7 +191,7 @@ export default {
         description: ''
       },
       form: {
-        content: '',
+        content: ''
       },
       processingJoining: false,
       errorMessage: '',
@@ -374,6 +373,25 @@ export default {
         console.log(error)
       } finally {
         // this.loadingCommunities = false
+      }
+    },
+    replyToPost (postId) {
+      this.processing_reply = true
+      const replyContent = this.replies[postId]
+      if (replyContent) {
+        const payload = {
+          content: replyContent
+        }
+        handlePostReply(postId, payload).then(() => {
+          this.$toastr.s('Reply was saved successfully.')
+        }).catch((error) => {
+          this.$toastr.e(error)
+        }).finally(() => {
+          this.replies[postId] = ''
+          this.processing_reply = false
+        })
+      } else {
+        this.$toastr.w('Reply content cannot be empty')
       }
     }
   }

@@ -15,7 +15,7 @@ export const getPosts = async () => {
 }
 
 export const handlePostReply = async (id, post) => {
-  const response = await axios.post(`https://medinize-apis.onrender.com/create-reply/${id}/`, post)
+  const response = await axios.post(`https://medinize-apis.onrender.com/create-reply/${id}/`, post, config)
   return response.status === 400 || response.status === 500 ? response.message : response
 }
 

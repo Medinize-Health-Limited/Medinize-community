@@ -19,8 +19,8 @@
               <img :src="require(`~/assets/icons/${item.icon}.svg`)" alt="">
               <span> {{ item.name }}</span>
             </div>
-            <div v-if="item.name === 'Communities' || item.name === 'Notifications'" class="flex justify-center items-center rounded-full bg-red-500 h-6 w-6">
-              <span class="text-white font-light text-center">2</span>
+            <div v-if="item.name === 'Communities'" class="flex justify-center items-center rounded-full bg-red-500 h-6 w-6">
+              <span class="text-white font-light text-center">{{ communitiesGroups ? communitiesGroups.length : '0' }}</span>
             </div>
           </nuxt-link>
         </li>
@@ -33,32 +33,18 @@
         </button>
       </div>
     </div>
-
-    <!-- <div class="sticky inset-x-0 bottom-0 border-t border-gray-100">
-      <a href="#" class="flex items-center gap-2 bg-white p-4 hover:bg-gray-50">
-        <img
-          alt="Man"
-          src="https://images.unsplash.com/photo-1600486913747-55e5470d6f40?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-          class="h-10 w-10 rounded-full object-cover"
-        >
-
-        <div class="">
-          <p v-if="user" class="text-xs">
-            <strong class="block font-medium">{{ user?.first_name }} {{ user?.last_name }}</strong>
-            <span>{{ user?.email }}</span>
-          </p>
-        </div>
-      </a>
-    </div> -->
   </div>
 </template>
 
 
 <script>
+import { getCommunities } from '@/services/post'
 export default {
   data () {
     return {
       user: null,
+      loadingCommunities: false,
+      communitiesGroups: [],
       sidebarItems: [
         {
           name: 'Home',
@@ -119,6 +105,20 @@ export default {
       this.$router.push('/')
     }
     // this.fetchUser()
+    this.loadCommunities()
+  },
+  methods: {
+    async loadCommunities () {
+      this.loadingCommunities = true
+      try {
+        const response = await getCommunities()
+        this.communitiesGroups = response?.data?.community_groups
+      } catch (error) {
+        console.log(error)
+      } finally {
+        this.loadingCommunities = false
+      }
+    }
   }
 }
 </script>
