@@ -19,7 +19,12 @@
                         
                         <p class="font-semibold mt-3 text-[1.3rem]">
                           {{ itm.content }} 
-                        </p> <small class="font-regular text-[.7rem]">{{ x.name }}</small>
+                        </p>
+                        <div class="flex justify-items items-center space-x-2">
+                          <div class="border rounded-[50%] h-3 w-3 bg-orange-500"></div>
+                          <small class="font-regular text-[.7rem]">{{ x.name }}</small>
+                        </div>
+                        
                         <div class="flex flex-row justify-between items-center gap-x-3 justify-end mt-4">
                           <div v-if="itm.replies" id="reply-count" class="flex items-center gap-x-2 cursor-pointer">
                             <p class="flex items-center gap-x-2">
@@ -42,6 +47,9 @@
                         </div>
                       </div>
                       <div v-for="(item, index) in itm.replies" id="replies" :key="index" class="rounded-md border-[0.4px] p-3">
+                        <div class="">
+                          <img src="~/assets/img/user.png" class="mb-2 w-6 h-6"/>
+                        </div>
                         <p class="text-gray-900">{{ item.content }}</p>
                         <p class="text-sm flex justify-end items-end">
                           {{ formatTimeElapsed(item.created_at) }}
