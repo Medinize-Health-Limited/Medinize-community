@@ -1,31 +1,44 @@
 <template>
   <main>
     <section class="pb-20">
-      <section class="lg:flex items-start gap-x-16 mt-10 space-y-20 md:space-y-0">
-        <div class="lg:w-6/12 space-y-6">
+      <section class="lg:flex items-start gap-x-8 mt-10 space-y-20 md:space-y-0">
+        <div class="lg:w-8/12 space-y-6">
           <div class="overflow-y-auto space-y-6 h-[550px]">
             <div v-if="posts.length" class="space-y-6 w-full">
-              <div v-for="(x, i) in posts" :key="i" class="rounded-md border-[0.4px] bg-white flex p-4 space-x-6 w-full">
+              <div v-for="(x, i) in posts" :key="i" class="rounded-md bg-white flex space-x-6 w-full">
                 <div class="w-full space-y-6">
-                  <h1 class="font-light text-sm">
+                  <!-- <h1 class="font-light text-sm">
                     {{ x.name }}
-                  </h1>
+                  </h1> -->
                   <div class="space-y-10">
-                    <div v-for="(itm, idx) in x.posts" :key="idx" class="text font-light w-full space-y-4 border border-green-200 p-3">
+                    <div v-for="(itm, idx) in x.posts" :key="idx" class="text font-light w-full space-y-4 border border-green-200 py-3 px-8">
                       <div class="rounded-md">
-                        <p class="font-medium">
-                          {{ itm.content }}
-                        </p>
-                        <div class="flex items-center gap-x-3 justify-end">
-                          <p class="flex items-center font-semibold gap-x-2">
-                            {{ itm.likes }} <img src="~/assets/img/like.png" alt="" class="h-4 w-4 cursor-pointer">
-                          </p>
-
-                          <div v-if="itm.replies" id="reply-count" class="flex items-center font-semibold gap-x-2 cursor-pointer">
-                            <p class="flex items-center font-semibold gap-x-2">
-                              {{ itm.replies.length }} <img src="~/assets/icons/view.svg" alt="" class="h-4 w-4 cursor-pointer">
+                        <div class="">
+                          <img src="~/assets/img/user.png" class="w-6 h-6"/>
+                        </div>
+                        
+                        <p class="font-semibold mt-3 text-[1.3rem]">
+                          {{ itm.content }} 
+                        </p> <small class="font-regular text-[.7rem]">{{ x.name }}</small>
+                        <div class="flex flex-row justify-between items-center gap-x-3 justify-end mt-4">
+                          <div v-if="itm.replies" id="reply-count" class="flex items-center gap-x-2 cursor-pointer">
+                            <p class="flex items-center gap-x-2">
+                              {{ itm.replies.length }} <img src="~/assets/img/comment.png" alt="" class="h-5 w-5 cursor-pointer">
                             </p>
                           </div>
+
+                          <p class="flex items-center gap-x-2">
+                            {{ itm.likes }} <img src="~/assets/img/love.png" alt="" class="h-5 w-5 cursor-pointer">
+                          </p>
+
+                          <p class="flex items-center gap-x-2">
+                            <img src="~/assets/img/bookmark.png" alt="" class="h-5 w-5 cursor-pointer">
+                          </p>
+
+                          <p class="flex items-center gap-x-2">
+                            <img src="~/assets/img/send.png" alt="" class="h-5 w-5 cursor-pointer">
+                          </p>
+
                         </div>
                       </div>
                       <div v-for="(item, index) in itm.replies" id="replies" :key="index" class="rounded-md border-[0.4px] p-3">
@@ -54,7 +67,7 @@
             </div>
           </div>
         </div>
-        <div class="rounded-md bg-white border  lg:w-6/12 space-y-6">
+        <div class="rounded-md bg-white border  lg:w-4/12 space-y-6">
           <div class="flex justify-between items-center px-4 pt-4">
             <h1 class="text-lg tracking-wider">
               Explore  Communities
