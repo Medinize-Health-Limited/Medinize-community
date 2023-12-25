@@ -25,15 +25,15 @@
                           <small class="font-regular text-[.7rem]">{{ x.name }}</small>
                         </div>
                         
-                        <div class="flex flex-row justify-between items-center gap-x-3 justify-end mt-4">
+                        <div class="flex items-center gap-x-6 justify-end mt-4">
                           <div v-if="itm.replies" id="reply-count" class="flex items-center gap-x-2 cursor-pointer">
                             <p class="flex items-center gap-x-2">
-                              {{ itm.replies.length }} <img src="~/assets/img/comment.png" alt="" class="h-5 w-5 cursor-pointer">
+                              {{ itm.replies.length }} <img src="~/assets/img/comment.png" alt="" class="h-6 w-6 cursor-pointer">
                             </p>
                           </div>
 
                           <p class="flex items-center gap-x-2">
-                            {{ itm.likes }} <img src="~/assets/img/love.png" alt="" class="h-5 w-5 cursor-pointer">
+                            {{ itm.likes }} <img src="~/assets/img/like.png" alt="" class="h-5 w-5 cursor-pointer">
                           </p>
 
                           <p class="flex items-center gap-x-2">
