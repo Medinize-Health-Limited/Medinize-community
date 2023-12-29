@@ -91,6 +91,11 @@ export default {
           path: '/dashboard'
         },
         {
+          name: 'Communities',
+          icon: 'communities',
+          path: '/dashboard/communities'
+        },
+        {
           name: 'Services',
           icon: 'services',
           path: '/dashboard/services'
@@ -119,11 +124,6 @@ export default {
           name: 'Wallet',
           icon: 'wallet',
           path: '/dashboard/wallet'
-        },
-        {
-          name: 'Communities',
-          icon: 'communities',
-          path: '/dashboard/communities'
         },
         {
           name: 'Notifications',

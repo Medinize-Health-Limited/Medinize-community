@@ -11,21 +11,31 @@
                     {{ x.name }}
                   </h1> -->
                   <div class="space-y-10">
-                    <div v-for="(itm, idx) in x.posts" :key="idx" class="text font-light w-full space-y-4 border border-green-200 py-3 px-8">
+                    <div v-for="(itm, idx) in x.posts" :key="idx" class="text font-light w-full space-y-4 border border-green-200 py-3 px-3">
                       <div class="rounded-md">
                         <div class="">
                           <img src="~/assets/img/user.png" class="w-6 h-6"/>
                         </div>
                         
-                        <p class="font-semibold mt-3 text-[1.3rem]">
-                          {{ itm.content }} 
-                        </p>
+                        <div class="flex items-center">
+                          <p class="font-semibold mt-3 text-[1.3rem]">
+                            {{ itm.content }} 
+                              <span class="">
+                                <span class="font-thin text-gray-500">.</span>
+                                <small class="font-thin text-gray-500 text-[.8rem]">
+                                  {{ formatTimeElapsed(itm.created_at) }}
+                                </small>
+                              </span>
+                          </p> 
+                          
+                        </div>
+                        
                         <div class="flex justify-items items-center space-x-2">
                           <div class="border rounded-[50%] h-3 w-3 bg-orange-500"></div>
                           <small class="font-regular text-[.7rem]">{{ x.name }}</small>
                         </div>
                         
-                        <div class="flex items-center gap-x-6 justify-end mt-4">
+                        <div class="flex justify-between items-center gap-x-6 md:justify-end mt-4">
                           <div v-if="itm.replies" id="reply-count" class="flex items-center gap-x-2 cursor-pointer">
                             <p class="flex items-center gap-x-2">
                               {{ itm.replies.length }} <img src="~/assets/img/comment.png" alt="" class="h-6 w-6 cursor-pointer">
@@ -48,12 +58,20 @@
                       </div>
                       <div v-for="(item, index) in itm.replies" id="replies" :key="index" class="rounded-md border-[0.4px] p-3">
                         <div class="">
-                          <img src="~/assets/img/user.png" class="mb-2 w-6 h-6"/>
+                          <img src="~/assets/img/user.png" class="mb-2 w-4 h-4"/>
                         </div>
-                        <p class="text-gray-900">{{ item.content }}</p>
-                        <p class="text-sm flex justify-end items-end">
-                          {{ formatTimeElapsed(item.created_at) }}
-                        </p>
+
+                        <div class="flex items-center">
+                          <p class="text-gray-900">{{ item.content }} 
+                            <span class="">
+                              <span class="text-gray-500">.</span>
+                              <small class="text-gray-500 text-[.8rem]">
+                                {{ formatTimeElapsed(item.created_at) }}
+                              </small>
+                            </span>
+                          </p>
+                          
+                        </div>
                       </div>
 
                       <div class="w-[100%] flex flex-row justify-between items-center">

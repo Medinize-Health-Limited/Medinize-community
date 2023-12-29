@@ -176,5 +176,5 @@ export default {
 .map {
  height: 500px;
   width: 800px;
-}
+} 
 </style>
