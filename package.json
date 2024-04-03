@@ -45,7 +45,7 @@
     "sass-loader": "^10.2.1",
     "vue": "^2.6.14",
     "vue-server-renderer": "^2.6.14",
-    "vue-ssr-carousel": "^2.3.2",
+    "vue-ssr-carousel": "^2.3.3",
     "vue-template-compiler": "^2.6.14",
     "vue-toastr": "^2.1.2",
     "vue2-editor": "^2.10.3",

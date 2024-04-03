@@ -31,10 +31,11 @@
           <ssr-carousel
             show-dots
             :autoplay-delay="15"
+            :slides-per-page="1"
             loop
             class="md:w-10/12 w-11/12 mx-auto rounded-lg bg-[#0A8525FC]"
           >
-            <div
+            <slide
               v-for="(itm, idx) in carousels"
               :key="idx"
               :index="idx + 1"
@@ -44,7 +45,7 @@
               data-aos-offset="500"
               data-aos-duration="500"
             >
-              <div class="flex justify-center items-center flex-col gap-y-4 p-6 w-10/12 mx-auto">
+              <div class="flex justify-center items-center flex-col gap-y-4 p-2 w-10/12 mx-auto">
                 <h1 class="md:text-3x font-medium text-2xl text-center text-white">
                   {{ itm.title }}
                 </h1>
@@ -52,7 +53,7 @@
                   {{ itm.description }}
                 </p>
               </div>
-            </div>
+            </slide>
           </ssr-carousel>
           <div> <img src="@/assets/icons/stripe1.svg" alt="" class="absolute top-0 right-0"></div>
           <div><img src="@/assets/icons/stripe2.svg" alt="" class="absolute bottom-0 left-0"></div>

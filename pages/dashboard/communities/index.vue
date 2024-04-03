@@ -16,25 +16,25 @@
                         <div class="">
                           <img src="~/assets/img/user.png" class="w-6 h-6"/>
                         </div>
-                        
+
                         <div class="flex items-center">
                           <p class="font-semibold mt-3 text-[1.3rem]">
-                            {{ itm.content }} 
+                            {{ itm.content }}
                               <span class="">
                                 <span class="font-thin text-gray-500">.</span>
                                 <small class="font-thin text-gray-500 text-[.8rem]">
                                   {{ formatTimeElapsed(itm.created_at) }}
                                 </small>
                               </span>
-                          </p> 
-                          
+                          </p>
+
                         </div>
-                        
+
                         <div class="flex justify-items items-center space-x-2">
                           <div class="border rounded-[50%] h-3 w-3 bg-orange-500"></div>
                           <small class="font-regular text-[.7rem]">{{ x.name }}</small>
                         </div>
-                        
+
                         <div class="flex justify-between items-center gap-x-6 md:justify-end mt-4">
                           <div v-if="itm.replies" id="reply-count" class="flex items-center gap-x-2 cursor-pointer">
                             <p class="flex items-center gap-x-2">
@@ -62,7 +62,7 @@
                         </div>
 
                         <div class="flex items-center">
-                          <p class="text-gray-900">{{ item.content }} 
+                          <p class="text-gray-900">{{ item.content }}
                             <span class="">
                               <span class="text-gray-500">.</span>
                               <small class="text-gray-500 text-[.8rem]">
@@ -70,7 +70,7 @@
                               </small>
                             </span>
                           </p>
-                          
+
                         </div>
                       </div>
 
@@ -159,89 +159,164 @@
           <p class="mt-4 leading-relaxed text-gray-500">
             Please Enter The Community namme you wish to create
           </p>
-
-          <form class="w-full space-y-6 pb-6" @submit.prevent="handleCreateCommunity">
-            <div class="w-full">
-              <label for="Email" class="block text-sm font-medium text-gray-700">
-                Community Name
-              </label>
-
-              <input
-                id="name"
-                v-model="communityForm.name"
-                type="text"
-                placeholder="Enter Community name"
-                name="name"
-                class="mt-1 w-full rounded-md py-3 px-3 outline-none border border-gray-200 bg-white text-sm text-gray-700"
-              >
-            </div>
-
-            <div class="w-full">
-              <label for="description" class="block text-sm font-medium text-gray-700">
-                Community description
-              </label>
-
-              <textarea
-                id="description"
-                v-model="communityForm.description"
-                type="text"
-                placeholder="Describe the community"
-                name="description"
-                class="mt-1 w-full rounded-md py-3 px-3 outline-none border border-gray-200 bg-white text-sm text-gray-700 resize-none"
-              />
-            </div>
-
-            <div class="w-full">
-              <button
-                type="submit"
-                :disabled="!isCommuniesformEmpty || processingCommunity"
-                :class="[!isCommuniesformEmpty || processingCommunity ? 'opacity-25 cursor-not-allowed' : '']"
-                class="w-full py-2.5 rounded-md text-white  bg-yellow-900"
-              >
-                {{ processingCommunity ? 'processing...' : ' Proceed' }}
-              </button>
-            </div>
-          </form>
         </div>
-      </main>
-    </b-modal>
+        <div class="hidden md:block">
+          <img src="@/assets/img/hands.png" alt="hands crossed" class="h-96 rounded-r-3xl">
+        </div>
+      </div>
+    </section>
+    <section class="lg:p-[60px] space-y-8 mt-10 lg:mt-10">
+      <h1 class="font-semibold text-lg md:text-2xl">
+        Medinize Communities
+      </h1>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <nuxt-link v-for="(itm, idx) in communities" :key="idx" :to="itm.path" class="relative">
+          <img :src="require(`@/assets/img/${itm.image}.png`)" alt="" class="h-full w-full">
+          <p class="text-white z-50 font-medium absolute bottom-4 left-4">
+            {{ itm.title }}
+          </p>
+        </nuxt-link>
+      </div>
+    </section>
+    <TermsModal class="p-4" :is-visible="isModalVisible" @close="isModalVisible = false">
+      <template #header>
+        <h2 class="md:text-xl text-lg font-bold text-center flex justify-center items-center mt-10">
+          Terms & Conditions for Joining a Medinize Community
+        </h2>
+      </template>
+      <template #content>
+        <div v-for="(itm, idx) in terms" :key="idx" class="text-gray-800">
+          <p class="font-semibold text-gray-800 p-0 m-0 text-sm">
+            {{ itm.id }} {{ itm.title }}
+          </p>
+          <p class="font-extralight p-0 m-0 text-sm text-gray-800">
+            {{ itm.description }}
+          </p>
+        </div>
+        <p class="text-sm">
+          By joining
+          <nuxt-link to="/" class="text-green-500 font-semibold">
+            ReproActive
+          </nuxt-link>, you acknowledge and agree to abide by these terms and conditions.
+          Failure to comply may result in the removal of your membership
+          privileges.
+        </p>
+        <p class="text-sm">
+          Thank you for your cooperation in creating a welcoming and inclusive
+          community environment.
+        </p>
+        <div class="flex items-center text-sm gap-x-3">
+          <input v-model="isAggrementTicked" type="checkbox">
+          <label class="text-xs">By checking this box, I agree to abide by the community guidelines
+            and terms of conduct outlined above</label>
+        </div>
+        <div class="flex justify-center items-center">
+          <button :disabled="!isAggrementTicked"
+            class="bg-[#064B05] disabled:cursor-not-allowed opacity-25 text-white font-semibold px-6 py-2.5 rounded-md"
+            @click="isModalVisible = false">
+            Join community
+          </button>
+        </div>
+      </template>
+    </TermsModal>
   </main>
 </template>
 
 <script>
-import { createPost, getPosts, getCommunities, createCommunityGroup, joinGroupCommunity, handlePostReply } from '@/services/post'
-import { loadPersonalInfo } from '@/services/auth'
-// import { VueEditor } from 'vue2-editor'
+import TermsModal from '@/components/TermsModal.vue'
 export default {
   components: {
-    // VueEditor
+    TermsModal
   },
-  data () {
+  data() {
     return {
-      processing: false,
-      processing_reply: false,
-      communityIdUniqueKey: '',
-      replies: {},
-      user: null,
-      userGroups: [],
-      comparismArray: [],
-      communityForm: {
-        name: '',
-        description: ''
-      },
-      form: {
-        content: ''
-      },
-      processingJoining: false,
-      errorMessage: '',
-      processingCommunity: false,
-      loadingCommunities: false,
-      loadingPosts: false,
-      communitiesGroups: [],
-      posts: [],
-      processing: false,
-      editorContent: '<html>What’s on your Mind?</html>',
-      content: '<html>What’s on your Mind?</html>'
+      isModalVisible: false,
+      isAggrementTicked: false,
+      terms: [
+        {
+          id: 1,
+          title: 'Respectful Conduct:',
+          description: 'By joining ReproActive, you agree to engage in respectful and courteous behavior towards all members. Any form of harassment, discrimination, or offensive language will not be tolerated.'
+        },
+        {
+          id: 2,
+          title: 'Relevance of Content:',
+          description: `All posts within ReproActive must be relevant to the theme and purpose of the community.
+        Off-topic posts may be removed at the discretion of the community moderators.`
+        },
+        {
+          id: 3,
+          title: 'Appropriate Language:',
+          description: 'Members are expected to use language that is inclusive, respectful, and appropriate for all audiences. Profanity, hate speech, or derogatory remarks are strictly prohibited.'
+        },
+        {
+          id: 4,
+          title: 'Protection of Privacy:',
+          description: 'You’re not to share personal details that could compromise your privacy or the privacy of others within ReproActive. Respect the confidentiality of fellow members at all times.'
+        },
+        {
+          id: 5,
+          title: 'Mutual Support:',
+          description: 'As a member of ReproActive, you are encouraged to offer support, encouragement, and constructive feedback to fellow members. Your contributions should aim to foster a positive and supportive environment for everyone.'
+        },
+        {
+          id: 6,
+          title: 'Reporting of Concerns:',
+          description: 'If you encounter any behavior within ReproActive that violates these terms and conditions or makes you feel uncomfortable, please report it immediately.'
+        }
+      ],
+      communities: [
+        {
+          image: 'cardio-connect',
+          title: 'CardioConnect',
+          path: '/dashboard/communities/cardio-connect'
+        },
+        {
+          image: 'sweet-life-cycle',
+          title: 'SweetLife Circle',
+          path: '/dashboard/communities/sweet-life-cycle'
+        },
+        {
+          image: 'repro-active',
+          title: 'ReproActive',
+          path: '/dashboard/communities/repro-active'
+        },
+        {
+          image: 'brave-heart',
+          title: 'BraveHeart',
+          path: '/dashboard/communities/brave-heart'
+        },
+        {
+          image: 'serene-mind',
+          title: 'SereneMind & Wellness',
+          path: '/dashboard/communities/serene-mind'
+        },
+        {
+          image: 'fitness',
+          title: 'Fit & Shape Network',
+          path: '/dashboard/communities/fitness'
+        },
+        {
+          image: 'warrior',
+          title: 'Warrior Alliance',
+          path: '/dashboard/communities/warrior'
+        },
+        {
+          image: 'eye-power',
+          title: 'EyePower Villa',
+          path: '/dashboard/communities/eye-power'
+        },
+        {
+          image: 'glow-zone',
+          title: 'GlowZone Network',
+          path: '/dashboard/communities/glow-zone'
+        },
+        {
+          image: 'pregnancy',
+          title: 'Pregnancy & Maternity',
+          path: '/dashboard/communities/pregnancy'
+        }
+      ]
     }
   },
   head: {
@@ -254,189 +329,8 @@ export default {
       }
     ]
   },
-  computed: {
-    isCommuniesformEmpty () {
-      return !!(this.communityForm.name && this.communityForm.description)
-    },
-    newArray () {
-      return this.communitiesGroups.map((item) => {
-        if (this.userGroups.includes(item.name)) {
-          return { ...item, visibility: false }
-        } else {
-          return { ...item, visibility: true }
-        }
-      })
-    }
-  },
-  mounted () {
-    this.init()
-    this.loadUser()
-    this.user = window.localStorage.getItem('user')
-    if (this.user === null) {
-      this.$router.push('/')
-    }
-  },
-  methods: {
-    async createPost () {
-      this.processing = true
-      try {
-        await createPost(this.form)
-        this.processing = false
-        this.loadPosts()
-      } catch (error) {
-
-      } finally {
-        this.processing = false
-      }
-    },
-    init () {
-      this.loadCommunities()
-      this.loadPosts()
-      this.loadUserInfo()
-    },
-    async loadCommunities () {
-      this.loadingCommunities = true
-      try {
-        const response = await getCommunities()
-        this.communitiesGroups = response?.data?.community_groups
-      } catch (error) {
-        console.log(error)
-      } finally {
-        this.loadingCommunities = false
-      }
-    },
-    async loadPosts () {
-      this.loadingPosts = true
-      try {
-        const response = await getPosts()
-        this.posts = response?.data?.community_groups
-      } catch (error) {
-        if (error.response) {
-          this.$toastr.e(`${error?.response?.data?.name[0]}`)
-        }
-        if (error.message === 'Network Error') {
-          this.errorMessage = error.message
-          this.$toastr.e('Please check your internet connectivity')
-        }
-      } finally {
-        this.loadingPosts = false
-      }
-    },
-    async handleCreateCommunity () {
-      this.processingCommunity = true
-      try {
-        const payload = {
-          name: this.communityForm?.name.toUpperCase(),
-          description: this.communityForm?.description
-        }
-        await createCommunityGroup(payload)
-        this.processingCommunity = false
-        this.loadCommunities()
-        this.$toastr.s(`Community Group ${this.communityForm?.name} was created successfully`)
-        this.$bvModal.hide('createCommunity')
-      } catch (error) {
-        if (error.response) {
-          this.$toastr.e(`${error?.response?.data?.name[0]}`)
-        }
-        if (error.message === 'Network Error') {
-          this.errorMessage = error.message
-          this.$toastr.e('Please check your internt connectivity')
-        }
-      } finally {
-        this.processingCommunity = false
-      }
-    },
-    // eslint-disable-next-line camelcase
-    formatTimeElapsed (created_at) {
-      const createdDate = new Date(created_at)
-      const currentDate = new Date()
-
-      // Calculate the time difference in milliseconds
-      const timeDifference = currentDate - createdDate
-
-      // Convert milliseconds to seconds, minutes, hours, and days
-      const seconds = Math.floor(timeDifference / 1000)
-      const minutes = Math.floor(seconds / 60)
-      const hours = Math.floor(minutes / 60)
-      const days = Math.floor(hours / 24)
-
-      // Format the result
-      if (days === 0) {
-        if (hours === 0) {
-          if (minutes === 0) {
-            return 'Just now'
-          } else {
-            return `${minutes} minute${minutes > 1 ? 's' : ''} ago`
-          }
-        } else {
-          return `${hours} hour${hours > 1 ? 's' : ''} ago`
-        }
-      } else if (days === 1) {
-        return 'Yesterday'
-      } else {
-        return `${days} day${days > 1 ? 's' : ''} ago`
-      }
-    },
-    async joinCommunity (itm) {
-      this.processingJoining = true
-      try {
-        const payload = {
-          group_name: itm.name.toLowerCase()
-        }
-        const result = await joinGroupCommunity(payload)
-        this.$toastr.s(`${result.data.message}`)
-        this.processingJoining = false
-        this.loadCommunities()
-      } catch (error) {
-        if (error.response) {
-          this.$toastr.e(`${error?.response?.data?.error}`)
-        }
-      } finally {
-        this.processingJoining = false
-      }
-    },
-    viewCommunity (item) {
-      this.$router.push(`/communities/${item.unique_id}`)
-    },
-    loadUser () {
-      const parsed = JSON.parse(localStorage.getItem('user'))
-      const userStr = parsed?.groups.split(',')
-      this.userGroups = userStr
-    },
-    async loadUserInfo () {
-      this.loadingCommunities = true
-      try {
-        const response = await loadPersonalInfo()
-        console.log(response, 'response')
-      } catch (error) {
-        console.log(error)
-      } finally {
-        // this.loadingCommunities = false
-      }
-    },
-    replyToPost (postId) {
-      this.processing_reply = true
-      const replyContent = this.replies[postId]
-      if (replyContent) {
-        const payload = {
-          content: replyContent
-        }
-        handlePostReply(postId, payload).then(() => {
-          this.$toastr.s('Reply was saved successfully.')
-        }).catch((error) => {
-          this.$toastr.e(error)
-        }).finally(() => {
-          this.replies[postId] = ''
-          this.processing_reply = false
-        })
-      } else {
-        this.$toastr.w('Reply content cannot be empty')
-      }
-    }
+  mounted() {
+    this.isModalVisible = true
   }
 }
 </script>
-
-<style>
-
-</style>

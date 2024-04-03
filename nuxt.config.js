@@ -54,7 +54,8 @@ export default {
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     '@nuxtjs/moment',
-    '@nuxt/postcss8'
+    '@nuxt/postcss8',
+    'vue-ssr-carousel/nuxt'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -74,12 +75,16 @@ export default {
     ]
     // 'vue2-editor/nuxt'
   ],
+  sweetalert: {
+    confirmButtonColor: '#41b882',
+    cancelButtonColor: '#ff7674'
+  },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     proxy: true,
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseURL: 'https://medinize-apis.onrender.com/'
+    baseURL: 'https://geziwmna3v.us-west-2.awsapprunner.com/'
   },
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa

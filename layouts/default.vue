@@ -3,7 +3,7 @@
     <LoadSpinner v-if="showHideSpinner" />
     <div class="relative w-full">
       <div class="flex flex-col md:flex-row">
-        <div class="md:w-2.5/12 h-full md:sticky top-0 hidden lg:flex">
+        <div class="md:w-2/12 h-full md:sticky top-0 hidden lg:flex">
           <SidebarSection />
         </div>
         <div class="w-9.5/12 h-full w-full">
@@ -17,7 +17,6 @@
     </div>
   </main>
 </template>
-
 <script>
 import Vue from 'vue'
 import LoadSpinner from '@/components/LoadSpinner.vue'
@@ -30,7 +29,7 @@ export default {
     MobileSidebar,
     LoadSpinner
   },
-  data () {
+  data() {
     return {
       toggleSidebar: false,
       showHideSpinner: true
@@ -43,14 +42,14 @@ export default {
     }
   },
   watch: {
-    '$route' () {
+    '$route'() {
       this.toggleSidebar = !this.toggleSidebar
     }
   },
-  beforeCreate () {
+  beforeCreate() {
     this.showHideSpinner = true
   },
-  mounted () {
+  mounted() {
     setTimeout(() => {
       this.showHideSpinner = false
     }, 3000)
@@ -59,19 +58,19 @@ export default {
       this.$router.push('/')
     }
   },
-  created () {
+  created() {
     this.$nuxt.$on('toggle', () => {
       this.showHideSpinner = false
     })
   },
-  beforeDestroy () {
+  beforeDestroy() {
     this.$nuxt.$off('toggle')
   },
   methods: {
-    closeMobileSidebar () {
+    closeMobileSidebar() {
       this.toggleSidebar = false
     },
-    openMobileSidebar () {
+    openMobileSidebar() {
       this.toggleSidebar = true
     }
   }
