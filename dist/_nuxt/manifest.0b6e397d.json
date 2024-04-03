@@ -1,0 +1,12 @@
+{
+  "name": "Medinize Community, bringing health care to the community.",
+  "short_name": "Medinize Community",
+  "description": "Medinize Community, Fostering Digital Health Care through community",
+  "icons": [],
+  "start_url": "/?standalone=true",
+  "display": "standalone",
+  "background_color": "#8B4E96",
+  "theme_color": "#8B4E96",
+  "lang": "en",
+  "orientation": "portrait"
+}
