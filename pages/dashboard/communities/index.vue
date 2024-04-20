@@ -11,21 +11,22 @@
                     {{ x.name }}
                   </h1> -->
                   <div class="space-y-10">
-                    <div v-for="(itm, idx) in x.posts" :key="idx" class="text font-light w-full space-y-4 border border-green-200 py-3 px-3">
+                    <div v-for="(itm, idx) in x.posts" :key="idx"
+                      class="text font-light w-full space-y-4 border border-green-200 py-3 px-3">
                       <div class="rounded-md">
                         <div class="">
-                          <img src="~/assets/img/user.png" class="w-6 h-6"/>
+                          <img src="~/assets/img/user.png" class="w-6 h-6" />
                         </div>
 
                         <div class="flex items-center">
                           <p class="font-semibold mt-3 text-[1.3rem]">
                             {{ itm.content }}
-                              <span class="">
-                                <span class="font-thin text-gray-500">.</span>
-                                <small class="font-thin text-gray-500 text-[.8rem]">
-                                  {{ formatTimeElapsed(itm.created_at) }}
-                                </small>
-                              </span>
+                            <span class="">
+                              <span class="font-thin text-gray-500">.</span>
+                              <small class="font-thin text-gray-500 text-[.8rem]">
+                                {{ formatTimeElapsed(itm.created_at) }}
+                              </small>
+                            </span>
                           </p>
 
                         </div>
@@ -38,7 +39,8 @@
                         <div class="flex justify-between items-center gap-x-6 md:justify-end mt-4">
                           <div v-if="itm.replies" id="reply-count" class="flex items-center gap-x-2 cursor-pointer">
                             <p class="flex items-center gap-x-2">
-                              {{ itm.replies.length }} <img src="~/assets/img/comment.png" alt="" class="h-6 w-6 cursor-pointer">
+                              {{ itm.replies.length }} <img src="~/assets/img/comment.png" alt=""
+                                class="h-6 w-6 cursor-pointer">
                             </p>
                           </div>
 
@@ -56,9 +58,10 @@
 
                         </div>
                       </div>
-                      <div v-for="(item, index) in itm.replies" id="replies" :key="index" class="rounded-md border-[0.4px] p-3">
+                      <div v-for="(item, index) in itm.replies" id="replies" :key="index"
+                        class="rounded-md border-[0.4px] p-3">
                         <div class="">
-                          <img src="~/assets/img/user.png" class="mb-2 w-4 h-4"/>
+                          <img src="~/assets/img/user.png" class="mb-2 w-4 h-4" />
                         </div>
 
                         <div class="flex items-center">
@@ -75,8 +78,11 @@
                       </div>
 
                       <div class="w-[100%] flex flex-row justify-between items-center">
-                        <input v-model="replies[itm.id]" type="text" placeholder="Type a reply" class="w-[73%] border outline-none w-full py-2.5 rounded-tl-md rounded-bl-md px-3">
-                        <button :disabled="processing" class="w-[20%] bg-green-600 text-white rounded-tr-md rounded-br-md text-sm py-[0.8rem] px-3" @click="replyToPost(itm.id)">
+                        <input v-model="replies[itm.id]" type="text" placeholder="Type a reply"
+                          class="w-[73%] border outline-none w-full py-2.5 rounded-tl-md rounded-bl-md px-3">
+                        <button :disabled="processing"
+                          class="w-[20%] bg-green-600 text-white rounded-tr-md rounded-br-md text-sm py-[0.8rem] px-3"
+                          @click="replyToPost(itm.id)">
                           {{ processing_reply ? 'loading' : 'Reply' }}
                         </button>
                       </div>
@@ -85,7 +91,8 @@
                 </div>
               </div>
             </div>
-            <div v-else-if="errorMessage === 'Network Error'" class="grid place-content-center place-items-center  h-48 w-full">
+            <div v-else-if="errorMessage === 'Network Error'"
+              class="grid place-content-center place-items-center  h-48 w-full">
               <p>No Communities available</p>
             </div>
             <div v-else class="p-6">
@@ -96,10 +103,11 @@
         <div class="rounded-md bg-white border  lg:w-4/12 space-y-6">
           <div class="flex justify-between items-center px-4 pt-4">
             <h1 class="text-lg tracking-wider">
-              Explore  Communities
+              Explore Communities
             </h1>
             <div v-if="user?.is_staff || user?.is_superuser">
-              <button class="bg-yellow-700 py-2.5 md:px-4 px-3 text-sm text-white rounded-md" @click="$bvModal.show('createCommunity')">
+              <button class="bg-yellow-700 py-2.5 md:px-4 px-3 text-sm text-white rounded-md"
+                @click="$bvModal.show('createCommunity')">
                 Create Community
               </button>
             </div>
@@ -107,7 +115,8 @@
 
           <div class="overflow-y-auto">
             <div v-if="communitiesGroups.length" class="h-[460px]">
-              <div v-for="(item, index) in communitiesGroups" :key="index" class="flex border-t justify-between items-center p-6 border-b">
+              <div v-for="(item, index) in communitiesGroups" :key="index"
+                class="flex border-t justify-between items-center p-6 border-b">
                 <div>
                   <h3 class="text-sm font-bold">
                     {{ item?.name }}
@@ -115,28 +124,23 @@
                   <h3 class="text-sm leading-relaxed font-light w-10/12">
                     {{ item?.description }}
                   </h3>
-                  <button v-if="item.visibility" class="py-2 rounded-md text-green-500 font-medium text-sm" @click="joinCommunity(item)">
+                  <button v-if="item.visibility" class="py-2 rounded-md text-green-500 font-medium text-sm"
+                    @click="joinCommunity(item)">
                     {{ processingJoining ? 'processing..' : 'Join Community' }}
                   </button>
                 </div>
                 <div>
                   <nuxt-link :to="`/dashboard/communities/${item.unique_id}`">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="29"
-                      height="29"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="#000000"
-                      stroke-wid7h="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    ><path d="M9 18l6-6-6-6" /></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="29" height="29" viewBox="0 0 24 24" fill="none"
+                      stroke="#000000" stroke-wid7h="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M9 18l6-6-6-6" />
+                    </svg>
                   </nuxt-link>
                 </div>
               </div>
             </div>
-            <div v-else-if="errorMessage === 'Network Error'" class="grid place-content-center place-items-center  h-48 w-full">
+            <div v-else-if="errorMessage === 'Network Error'"
+              class="grid place-content-center place-items-center  h-48 w-full">
               <p>No Communities available</p>
             </div>
             <div v-else class="p-6">
@@ -146,79 +150,77 @@
         </div>
       </section>
     </section>
-    <b-modal id="createCommunity" hide-footer hide-header>
-      <main
-        class=""
-      >
-        <div class="max-w-xl lg:max-w-3xl">
-          <a class="block text-blue-600" href="/">
-            <span class="sr-only">Home</span>
-            <img src="~/assets/icons/logo.svg" alt="logout icon">
-          </a>
+    <main class="">
+      <div class="max-w-xl lg:max-w-3xl">
+        <a class="block text-blue-600" href="/">
+          <span class="sr-only">Home</span>
+          <img src="~/assets/icons/logo.svg" alt="logout icon">
+        </a>
 
-          <p class="mt-4 leading-relaxed text-gray-500">
-            Please Enter The Community namme you wish to create
-          </p>
-        </div>
-        <div class="hidden md:block">
-          <img src="@/assets/img/hands.png" alt="hands crossed" class="h-96 rounded-r-3xl">
-        </div>
-      </div>
-    </section>
-    <section class="lg:p-[60px] space-y-8 mt-10 lg:mt-10">
-      <h1 class="font-semibold text-lg md:text-2xl">
-        Medinize Communities
-      </h1>
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        <nuxt-link v-for="(itm, idx) in communities" :key="idx" :to="itm.path" class="relative">
-          <img :src="require(`@/assets/img/${itm.image}.png`)" alt="" class="h-full w-full">
-          <p class="text-white z-50 font-medium absolute bottom-4 left-4">
-            {{ itm.title }}
-          </p>
-        </nuxt-link>
-      </div>
-    </section>
-    <TermsModal class="p-4" :is-visible="isModalVisible" @close="isModalVisible = false">
-      <template #header>
-        <h2 class="md:text-xl text-lg font-bold text-center flex justify-center items-center mt-10">
-          Terms & Conditions for Joining a Medinize Community
-        </h2>
-      </template>
-      <template #content>
-        <div v-for="(itm, idx) in terms" :key="idx" class="text-gray-800">
-          <p class="font-semibold text-gray-800 p-0 m-0 text-sm">
-            {{ itm.id }} {{ itm.title }}
-          </p>
-          <p class="font-extralight p-0 m-0 text-sm text-gray-800">
-            {{ itm.description }}
-          </p>
-        </div>
-        <p class="text-sm">
-          By joining
-          <nuxt-link to="/" class="text-green-500 font-semibold">
-            ReproActive
-          </nuxt-link>, you acknowledge and agree to abide by these terms and conditions.
-          Failure to comply may result in the removal of your membership
-          privileges.
+        <p class="mt-4 leading-relaxed text-gray-500">
+          Please Enter The Community namme you wish to create
         </p>
-        <p class="text-sm">
-          Thank you for your cooperation in creating a welcoming and inclusive
-          community environment.
-        </p>
-        <div class="flex items-center text-sm gap-x-3">
-          <input v-model="isAggrementTicked" type="checkbox">
-          <label class="text-xs">By checking this box, I agree to abide by the community guidelines
-            and terms of conduct outlined above</label>
+      </div>
+      <div class="hidden md:block">
+        <img src="@/assets/img/hands.png" alt="hands crossed" class="h-96 rounded-r-3xl">
+      </div>
+      </div>
+      </section>
+      <section class="lg:p-[60px] space-y-8 mt-10 lg:mt-10">
+        <h1 class="font-semibold text-lg md:text-2xl">
+          Medinize Communities
+        </h1>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          <nuxt-link v-for="(itm, idx) in communities" :key="idx" :to="itm.path" class="relative">
+            <img :src="require(`@/assets/img/${itm.image}.png`)" alt="" class="h-full w-full">
+            <p class="text-white z-50 font-medium absolute bottom-4 left-4">
+              {{ itm.title }}
+            </p>
+          </nuxt-link>
         </div>
-        <div class="flex justify-center items-center">
-          <button :disabled="!isAggrementTicked"
-            class="bg-[#064B05] disabled:cursor-not-allowed opacity-25 text-white font-semibold px-6 py-2.5 rounded-md"
-            @click="isModalVisible = false">
-            Join community
-          </button>
-        </div>
-      </template>
-    </TermsModal>
+      </section>
+      <TermsModal class="p-4" :is-visible="isModalVisible" @close="isModalVisible = false">
+        <template #header>
+          <h2 class="md:text-xl text-lg font-bold text-center flex justify-center items-center mt-10">
+            Terms & Conditions for Joining a Medinize Community
+          </h2>
+        </template>
+        <template #content>
+          <div v-for="(itm, idx) in terms" :key="idx" class="text-gray-800">
+            <p class="font-semibold text-gray-800 p-0 m-0 text-sm">
+              {{ itm.id }} {{ itm.title }}
+            </p>
+            <p class="font-extralight p-0 m-0 text-sm text-gray-800">
+              {{ itm.description }}
+            </p>
+          </div>
+          <p class="text-sm">
+            By joining
+            <nuxt-link to="/" class="text-green-500 font-semibold">
+              ReproActive
+            </nuxt-link>, you acknowledge and agree to abide by these terms and conditions.
+            Failure to comply may result in the removal of your membership
+            privileges.
+          </p>
+          <p class="text-sm">
+            Thank you for your cooperation in creating a welcoming and inclusive
+            community environment.
+          </p>
+          <div class="flex items-center text-sm gap-x-3">
+            <input v-model="isAggrementTicked" type="checkbox">
+            <label class="text-xs">By checking this box, I agree to abide by the community guidelines
+              and terms of conduct outlined above</label>
+          </div>
+          <div class="flex justify-center items-center">
+            <button :disabled="!isAggrementTicked"
+              class="bg-[#064B05] disabled:cursor-not-allowed opacity-25 text-white font-semibold px-6 py-2.5 rounded-md"
+              @click="isModalVisible = false">
+              Join community
+            </button>
+          </div>
+        </template>
+      </TermsModal>
+    </main>
   </main>
 </template>
 

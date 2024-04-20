@@ -17,6 +17,9 @@ export default {
       {
         src: 'https://unpkg.com/leaflet-geosearch@3.0.0/dist/geosearch.umd.js'
       }
+      // {
+      //   src: 'https://download.agora.io/sdk/release/AgoraRTC_N-4.20.0.js'
+      // }
     ]
   },
   ssr: false,
