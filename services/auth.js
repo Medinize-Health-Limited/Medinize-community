@@ -1,4 +1,4 @@
-// https://medinize-apis.onrender.com/personal-info/
+// https://geziwmna3v.us-west-2.awsapprunner.com/personal-info/
 
 import axios from 'axios'
 const token = JSON.parse(window.localStorage.getItem('user'))?.token

@@ -1,7 +1,8 @@
 <template>
   <main>
     <div class="grid mt-4 md:mt-10 mb-4">
-      <form class="flex justify-center items-center flex-col space-y-8 w-11/12 mx-auto lg:w-[500px]" @submit.prevent="handleSignup">
+      <form class="flex justify-center items-center flex-col space-y-8 w-11/12 mx-auto lg:w-[500px]"
+        @submit.prevent="handleSignup">
         <div>
           <h1 class="text-2xl text-[#0A7D08] font-bold text-center">
             Create an account with Medinize
@@ -12,33 +13,42 @@
         </div>
         <div class="w-full">
           <label for="fname" class="sr-only" />
-          <input id="fname" v-model="form.first_name" type="text" class="py-3 rounded-md w-full px-3 border text-sm outline-none border-gray-300" placeholder="Enter first name">
+          <input id="fname" v-model="form.first_name" type="text"
+            class="py-3 rounded-md w-full px-3 border text-sm outline-none border-gray-300"
+            placeholder="Enter first name">
         </div>
         <div class="w-full">
           <label for="lname" class="sr-only" />
-          <input id="lname" v-model="form.last_name" type="text" class="py-3 rounded-md w-full px-3 border text-sm outline-none border-gray-300" placeholder="Enter last name">
+          <input id="lname" v-model="form.last_name" type="text"
+            class="py-3 rounded-md w-full px-3 border text-sm outline-none border-gray-300"
+            placeholder="Enter last name">
         </div>
         <div class="w-full">
           <label for="email" class="sr-only" />
-          <input id="email" v-model="form.email" type="email" class="py-3 rounded-md w-full text-sm px-3 border outline-none border-gray-300" placeholder="Enter Email address">
+          <input id="email" v-model="form.email" type="email"
+            class="py-3 rounded-md w-full text-sm px-3 border outline-none border-gray-300"
+            placeholder="Enter Email address">
         </div>
         <div class="w-full">
           <label for="phone" class="sr-only" />
-          <input id="phone" v-model="form.phone_number" type="tel" class="py-3 rounded-md w-full text-sm px-3 border outline-none border-gray-300" placeholder="Enter phone number">
+          <input id="phone" v-model="form.phone_number" type="tel"
+            class="py-3 rounded-md w-full text-sm px-3 border outline-none border-gray-300"
+            placeholder="Enter phone number">
         </div>
         <div class="w-full relative">
           <label for="password" class="sr-only" />
-          <input id="password" v-model="form.password" :type="is_password_eye_open ? 'text' : 'password'" class="py-3 text-sm rounded-md w-full px-3 border outline-none border-gray-300" placeholder="Enter Password">
+          <input id="password" v-model="form.password" :type="is_password_eye_open ? 'text' : 'password'"
+            class="py-3 text-sm rounded-md w-full px-3 border outline-none border-gray-300"
+            placeholder="Enter Password">
           <div class="absolute right-6 top-4 ">
-            <img :src="require(`@/assets/icons/${togglePasswordEye}.svg`)" alt="" class="h-6 w-6 cursor-pointer" @click="is_password_eye_open = !is_password_eye_open">
+            <img :src="require(`@/assets/icons/${togglePasswordEye}.svg`)" alt="" class="h-6 w-6 cursor-pointer"
+              @click="is_password_eye_open = !is_password_eye_open">
           </div>
         </div>
         <div class="w-full">
-          <button
-            :class="[!isFormValid || processing ? 'cursor-not-allowed opacity-25' : '']"
+          <button :class="[!isFormValid || processing ? 'cursor-not-allowed opacity-25' : '']"
             :disabled="!isFormValid || processing"
-            class="text-white text-xs md:text-sm md:py-3 py-3 rounded-lg text-center w-full  bg-[#0A7D08]"
-          >
+            class="text-white text-xs md:text-sm md:py-3 py-3 rounded-lg text-center w-full  bg-[#0A7D08]">
             {{ processing ? 'processing...' : 'Create an Account' }}
           </button>
         </div>
@@ -54,7 +64,7 @@ const countries = require('i18n-iso-countries')
 countries.registerLocale(require('i18n-iso-countries/langs/en.json'))
 export default {
   layout: 'auth',
-  data () {
+  data() {
     return {
       is_password_eye_open: false,
       is_confirm_password_eye_open: false,
@@ -74,17 +84,17 @@ export default {
     }
   },
   computed: {
-    togglePasswordEye () {
+    togglePasswordEye() {
       return !this.is_password_eye_open ? 'eye-close' : 'eye-open'
     },
-    toggleConfirmPasswordEye () {
+    toggleConfirmPasswordEye() {
       return !this.is_confirm_password_eye_open ? 'eye-close' : 'eye-open'
     },
-    countries () {
+    countries() {
       const list = countries.getNames('en', { select: 'alias' })
       return Object.keys(list).map(key => ({ value: key, label: list[key] }))
     },
-    isFormValid () {
+    isFormValid() {
       return !!(this.form?.first_name?.length &&
         this.form?.last_name?.length &&
         this.form?.email?.length &&
@@ -93,17 +103,17 @@ export default {
     }
   },
   watch: {
-    selected () {
+    selected() {
       const dialCodeLookUp = lookup.byInternet(this.selected)
       const response = countryCodeEmoji(this.selected)
       this.countryFlag = response
     }
   },
   methods: {
-    handleSignup () {
+    handleSignup() {
       this.processing = true
       this.$axios
-        .post('https://medinize-apis.onrender.com/signup/', this.form)
+        .post('https://geziwmna3v.us-west-2.awsapprunner.com/signup/', this.form)
         .then((res) => {
           this.$toastr.s('Signup was successful')
           this.$router.push('/')

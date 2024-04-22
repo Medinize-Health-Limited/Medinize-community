@@ -254,7 +254,7 @@ export default {
     handleSignup() {
       this.processing = true
       this.$axios
-        .post('https://medinize-apis.onrender.com/signup/', this.form)
+        .post('https://geziwmna3v.us-west-2.awsapprunner.com/signup/', this.form)
         .then((res) => {
           this.$toastr.s('Signup was successful')
           this.$router.push('/')

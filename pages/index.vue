@@ -58,7 +58,7 @@ export default {
   methods: {
     handleLogin () {
       this.processing = true
-      this.$axios.post('https://medinize-apis.onrender.com/login/', this.form).then((res) => {
+      this.$axios.post('https://geziwmna3v.us-west-2.awsapprunner.com/login/', this.form).then((res) => {
         if (process.client) {
           localStorage.setItem('user', JSON.stringify(res.data))
         }
