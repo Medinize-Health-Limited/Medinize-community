@@ -1,15 +1,12 @@
 <template>
   <main>
-    <section class="pb-20">
+    <!-- <section class="pb-20">
       <section class="lg:flex items-start gap-x-8 mt-10 space-y-20 md:space-y-0">
         <div class="lg:w-8/12 space-y-6">
           <div class="overflow-y-auto space-y-6 h-[550px]">
-            <div v-if="posts.length" class="space-y-6 w-full">
+            <div v-if="posts?.length" class="space-y-6 w-full">
               <div v-for="(x, i) in posts" :key="i" class="rounded-md bg-white flex space-x-6 w-full">
                 <div class="w-full space-y-6">
-                  <!-- <h1 class="font-light text-sm">
-                    {{ x.name }}
-                  </h1> -->
                   <div class="space-y-10">
                     <div v-for="(itm, idx) in x.posts" :key="idx"
                       class="text font-light w-full space-y-4 border border-green-200 py-3 px-3">
@@ -39,7 +36,7 @@
                         <div class="flex justify-between items-center gap-x-6 md:justify-end mt-4">
                           <div v-if="itm.replies" id="reply-count" class="flex items-center gap-x-2 cursor-pointer">
                             <p class="flex items-center gap-x-2">
-                              {{ itm.replies.length }} <img src="~/assets/img/comment.png" alt=""
+                              {{ itm?.replies?.length }} <img src="~/assets/img/comment.png" alt=""
                                 class="h-6 w-6 cursor-pointer">
                             </p>
                           </div>
@@ -114,7 +111,7 @@
           </div>
 
           <div class="overflow-y-auto">
-            <div v-if="communitiesGroups.length" class="h-[460px]">
+            <div v-if="communitiesGroups?.length" class="h-[460px]">
               <div v-for="(item, index) in communitiesGroups" :key="index"
                 class="flex border-t justify-between items-center p-6 border-b">
                 <div>
@@ -149,23 +146,8 @@
           </div>
         </div>
       </section>
-    </section>
+    </section> -->
     <main class="">
-      <div class="max-w-xl lg:max-w-3xl">
-        <a class="block text-blue-600" href="/">
-          <span class="sr-only">Home</span>
-          <img src="~/assets/icons/logo.svg" alt="logout icon">
-        </a>
-
-        <p class="mt-4 leading-relaxed text-gray-500">
-          Please Enter The Community namme you wish to create
-        </p>
-      </div>
-      <div class="hidden md:block">
-        <img src="@/assets/img/hands.png" alt="hands crossed" class="h-96 rounded-r-3xl">
-      </div>
-      </div>
-      </section>
       <section class="lg:p-[60px] space-y-8 mt-10 lg:mt-10">
         <h1 class="font-semibold text-lg md:text-2xl">
           Medinize Communities

@@ -35,7 +35,7 @@
             loop
             class="md:w-10/12 w-11/12 mx-auto rounded-lg bg-[#0A8525FC]"
           >
-            <slide
+            <div
               v-for="(itm, idx) in carousels"
               :key="idx"
               :index="idx + 1"
@@ -53,7 +53,7 @@
                   {{ itm.description }}
                 </p>
               </div>
-            </slide>
+            </div>
           </ssr-carousel>
           <div> <img src="@/assets/icons/stripe1.svg" alt="" class="absolute top-0 right-0"></div>
           <div><img src="@/assets/icons/stripe2.svg" alt="" class="absolute bottom-0 left-0"></div>
