@@ -8,94 +8,37 @@
       <ul class="-mt-4">
         <li v-for="(item, index) in sidebarItems" :key="index" class="pr-6 rounded-md">
           <nuxt-link :to="item.path" :class="[item.path === $route.path ? 'bg-green-100' : '']" href=""
-            class="px-4 py-3 text-sm font-light text-gray-700 flex justify-between items-center no-underline">
+            class="px-4 py-3 text-sm font-light text-gray-700 flex justify-between items-center no-underline"
+            @click.native="handleCommunitiesToggle(item)">
             <div class="flex items-center gap-x-2 w-[100%]">
               <img :src="require(`~/assets/icons/${item.icon}.svg`)" alt="">
               <span> {{ item.name }}</span>
             </div>
-            <div v-if="item.name === 'Communities'" class="relative inline-block text-left">
-              <div>
-                <button id="menu-button" type="button"
-                  class="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-                  aria-expanded="true" aria-haspopup="true">
-                  Options
-                  <svg class="-mr-1 h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                    <path fill-rule="evenodd"
-                      d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
-                      clip-rule="evenodd" />
-                  </svg>
-                </button>
-              </div>
-              <div
-                class="absolute right-0 z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-[#CEEACE] shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
-                role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
-                <div class="py-1" role="none">
-                  <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
-                  <nuxt-link id="menu-item-0" to="/"
-                    class="text-gray-700 space-x-3 no-underline group flex items-center px-4 py-2 text-sm"
-                    role="menuitem" tabindex="-1">
-                    <img src="~/assets/img/repro-active.png" class="h-6 w-6 mr-3 rounded-full" alt="logout icon">
-                    ReproActive
-                  </nuxt-link>
-                  <nuxt-link id="menu-item-1" to="/"
-                    class="text-gray-700 space-x-3 no-underline group flex items-center px-4 py-2 text-sm"
-                    role="menuitem" tabindex="-1">
-                    <img src="~/assets/img/sweet-life-cycle.png" class="h-6 w-6 mr-3 rounded-full" alt="logout icon">
-                    SweetLife Circle
-                  </nuxt-link>
-                </div>
-                <div class="py-1" role="none">
-                  <nuxt-link id="menu-item-2" to="/"
-                    class="text-gray-700 space-x-3 no-underline group flex items-center px-4 py-2 text-sm"
-                    role="menuitem" tabindex="-1">
-                    <img src="~/assets/img/brave-heart.png" class="h-6 w-6 mr-3 rounded-full" alt="logout icon">
-                    BraveHeart
-                  </nuxt-link>
-                </div>
-              </div>
-            </div>
-
-            <!-- <div v-if="item.name === 'Communities'"
-              class="relative inline-block text-left w-full z-50 border-2 border-red-500">
-              <div>
-                <svg class="-mr-1 h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                  <path fill-rule="evenodd"
-                    d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
-                    clip-rule="evenodd" />
-                </svg>
-              </div>
-              <div class="">
-                <div
-                  class="absolute right-0 left-0 z-10 mt-2 w-52 origin-top-right rounded-md bg-green-100 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
-                  role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
-                  <div class="py-1 w-full" role="none">
-                    <nuxt-link id="menu-item-0" to="/" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem"
-                      tabindex="-1">
-                      ReproActive
-                    </nuxt-link>
-                    <nuxt-link id="menu-item-1" to="/" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem"
-                      tabindex="-1">
-                      SweetLife Circle
-                    </nuxt-link>
-                    <nuxt-link id="menu-item-2" to="/" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem"
-                      tabindex="-1">
-                      BraveHeart
-                    </nuxt-link>
-                  </div>
-                </div>
-              </div>
-            </div> -->
           </nuxt-link>
+          <div v-if="item.name === 'Communities'">
+        <li>
+          <div v-if="showCommunities">
+            <ul id="sub-menu-2" class="mt-1 px-2">
+              <li v-for="itm in communities">
+                <!-- 44px -->
+                <nuxt-link :to="itm.path" @click.native="showCommunities = false"
+                  class="hover:bg-gray-50 block no-underline rounded-md py-2 pr-2 pl-9 text-xs leading-6 text-gray-700">GraphQL
+                  {{ itm.title }}</nuxt-link>
+              </li>
+            </ul>
+          </div>
         </li>
-      </ul>
-
-      <div class="ml-14">
-        <button class="text-red-500 font-medium flex items-center gap-x-2">
-          <img src="~/assets/icons/logout.svg" alt="logout icon">
-          <span> Logout </span>
-        </button>
-      </div>
     </div>
+    </li>
+    </ul>
+
+    <div class="ml-14">
+      <button class="text-red-500 font-medium flex items-center gap-x-2">
+        <img src="~/assets/icons/logout.svg" alt="logout icon">
+        <span> Logout </span>
+      </button>
+    </div>
+  </div>
   </div>
 </template>
 
@@ -106,6 +49,7 @@ export default {
     return {
       user: null,
       loadingCommunities: false,
+      showCommunities: false,
       communitiesGroups: [],
       sidebarItems: [
         {
@@ -158,6 +102,58 @@ export default {
           icon: 'settings',
           path: '/dashboard/settings'
         }
+      ],
+      communities: [
+        {
+          image: 'cardio-connect',
+          title: 'CardioConnect',
+          path: '/dashboard/communities/cardio-connect'
+        },
+        {
+          image: 'sweet-life-cycle',
+          title: 'SweetLife Circle',
+          path: '/dashboard/communities/sweet-life-cycle'
+        },
+        {
+          image: 'repro-active',
+          title: 'ReproActive',
+          path: '/dashboard/communities/repro-active'
+        },
+        {
+          image: 'brave-heart',
+          title: 'BraveHeart',
+          path: '/dashboard/communities/brave-heart'
+        },
+        {
+          image: 'serene-mind',
+          title: 'SereneMind & Wellness',
+          path: '/dashboard/communities/serene-mind'
+        },
+        {
+          image: 'fitness',
+          title: 'Fit & Shape Network',
+          path: '/dashboard/communities/fitness'
+        },
+        {
+          image: 'warrior',
+          title: 'Warrior Alliance',
+          path: '/dashboard/communities/warrior'
+        },
+        {
+          image: 'eye-power',
+          title: 'EyePower Villa',
+          path: '/dashboard/communities/eye-power'
+        },
+        {
+          image: 'glow-zone',
+          title: 'GlowZone Network',
+          path: '/dashboard/communities/glow-zone'
+        },
+        {
+          image: 'pregnancy',
+          title: 'Pregnancy & Maternity',
+          path: '/dashboard/communities/pregnancy'
+        }
       ]
     }
   },
@@ -179,6 +175,11 @@ export default {
         console.log(error)
       } finally {
         this.loadingCommunities = false
+      }
+    },
+    handleCommunitiesToggle(item) {
+      if (item.name === 'Communities') {
+        this.showCommunities = !this.showCommunities
       }
     }
   }
