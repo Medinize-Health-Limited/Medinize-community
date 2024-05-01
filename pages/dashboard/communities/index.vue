@@ -212,7 +212,7 @@ export default {
   components: {
     TermsModal
   },
-  data() {
+  data () {
     return {
       isModalVisible: false,
       isAggrementTicked: false,

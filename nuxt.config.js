@@ -34,13 +34,15 @@ export default {
     '~/plugins/axios',
     '~/plugins/bootstrap-vue.client',
     { src: '~/plugins/toastr.js', mode: 'client' },
+    { src: "~/plugins/apexcharts", ssr: false },
     {
       src: '~/plugins/tawk-messenger.client.js',
       mode: 'client'
     },
     // { src: '~/plugins/localstorage.client.js', mode: 'client' },
     // { src: '~/plugins/quillEditor.js', mode: 'client' }
-    { src: '~plugins/leaflet.js', ssr: false }
+    { src: '~plugins/leaflet.js', ssr: false },
+    { src: '~/plugins/vue-datepicker', ssr: false }
   ],
 
   bootstrapVue: {

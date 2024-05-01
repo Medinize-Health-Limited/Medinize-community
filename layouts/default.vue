@@ -1,14 +1,14 @@
 <template>
   <main>
-    <LoadSpinner v-if="showHideSpinner" />
+    <!-- <LoadSpinner v-if="showHideSpinner" /> -->
     <div class="relative w-full">
       <div class="flex flex-col md:flex-row">
         <div class="md:w-2/12 h-full md:sticky top-0 hidden lg:flex">
           <SidebarSection />
         </div>
-        <div class="w-9.5/12 h-full w-full">
+        <div class="w-9.5/12 h-full w-full bg-[#E6EDFE]">
           <navigation-bar-section class="" @open="openMobileSidebar" />
-          <div class="md:px-10 px-3">
+          <div class="md:px-10 px-3 h-screen">
             <nuxt />
           </div>
         </div>

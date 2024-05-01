@@ -1,249 +1,76 @@
 <template>
-  <section class="bg-[#E6EDFE]">
-    <main>
-      <div class="border bg-white rounded-lg">
-        <p class="bg-white py-4 pl-4 rounded-tr-md rounded-tl-md">
-          Appointnment
-        </p>
-        <div v-if="activeHomeTab === 'Overview'">
-          <div class="space-y-6">
-            <div class="">
-              <div class="grid grid-cols-2 ring-gray-50 rounded-md bg-white relative">
-                <div
-                  v-for="appointment in appointments"
-                  :key="appointment.value"
-                  :class="[currentTab != appointment.value ? '' : 'bg-gray-50']"
-                  class="flex justify-center gap-x-4 items-center h-full border-[0.4px]"
-                >
-                  <button
-                    :class="[currentTab === appointment.value ? 'border-b-2 border-gray-500' : 'border-gray-500']"
-                    class="tracking-wide w-full flex justify-center items-center pt-3"
-                    @click="currentTab = appointment.value"
-                  >
-                    <div class="flex justify-center items-center flex-col">
-                      <p class="uppercase text-xs md:text-base">
-                        {{ appointment.name }}
-                      </p>
-                    </div>
-                  </button>
-                </div>
-              </div>
-
-              <section v-if="currentTab === appointments[0].value">
-                <main v-if="upcomingAppointments.length" class="">
-                  <main
-                    v-for="upcomingAppointment in upcomingAppointments"
-                    :key="upcomingAppointment.id"
-                    class="bg-white border-b"
-                  >
-                    <div class="md:p-6 p-3">
-                      <div class="flex justify-between md:space-x-6 space-x-3">
-                        <div class="">
-                          <!-- <img src="@/assets/img/doctorsAvatar.svg" class="h-6 w-6 md:h-full md:w-full" alt=""> -->
-                          <img
-                            alt="Paul Clapton"
-                            src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80"
-                            class="h-16 w-16 rounded-full object-cover shadow-sm "
-                          >
-                        </div>
-                        <div class="space-y-6 flex-grow">
-                          <div class="space-y-1">
-                            <h1 class="text-gray-700 font-medium text-xs md:text-base tracking-wide">
-                              {{ upcomingAppointment.physician }}
-                            </h1>
-                            <p class="text-gray-500 text-xs">
-                              {{ upcomingAppointment.physicianPosition }}
-                            </p>
-                          </div>
-                        </div>
-                        <div class="flex space-x-2">
-                          <!-- <div> <img src="@/assets/img/reminder.svg"></div> -->
-                          <p class="text-gray-500 text-xs md:text-sm">
-                            {{ upcomingAppointment.appointmentDate }}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </main>
-                  <div style="background-color : #FFFF" class="py-3 px-6 flex justify-between items-center">
-                    <p class="text-xs md:text-sm text-teal-700 tracking-wider">
-                      See all Appointments
-                    </p>
-                    <p class="cursor-pointer">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="28"
-                        height="28"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="#c7cecb"
-                        stroke-width="1.5"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      >
-                        <path d="M9 18l6-6-6-6" />
-                      </svg>
-                    </p>
-                  </div>
-                </main>
-                <main v-else class="flex justify-center items-center flex-col space-y-6 bg-white py-20">
-                  <!-- <div><img src="@/assets/img/empty-state.svg" alt="" /></div> -->
-                  <p style="color : #353F50" class="tracking-wider">
-                    ⏱ No upcoming appointments.
-                  </p>
-                </main>
-              </section>
-
-              <section v-if="currentTab === appointments[1].value">
-                <main v-if="pastAppointments.length" class="">
-                  <main v-for="pastAppointment in pastAppointments" :key="pastAppointment.id" class="bg-white border-b">
-                    <div class="md:p-6 p-3">
-                      <div class="flex justify-between md:space-x-6 space-x-3">
-                        <div>
-                          <!-- <img src="@/assets/img/doctorsAvatar.svg" class="h-6 w-6 md:h-full md:w-full" alt=""> -->
-                          <img
-                            alt="Paul Clapton"
-                            src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80"
-                            class="h-16 w-16 rounded-full object-cover shadow-sm "
-                          >
-                        </div>
-                        <div class="space-y-6 flex-grow">
-                          <div class="space-y-1">
-                            <h1 class="text-gray-700 text-xs md:text-base tracking-wide">
-                              {{ pastAppointment.physician }}
-                            </h1>
-                            <p class="text-gray-500 text-xs">
-                              {{ pastAppointment.physicianPosition }}
-                            </p>
-                          </div>
-                        </div>
-                        <div class="flex space-x-2">
-                          <!-- <div> <img src="@/assets/img/reminder.svg"></div> -->
-                          <p class="text-gray-500 text-xs md:text-sm ">
-                            {{ pastAppointment.appointmentDate }}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </main>
-                  <div style="background-color : #FFFF" class="py-3 px-6 flex justify-between items-center">
-                    <p class="text-xs md:text-sm text-teal-700 tracking-wider">
-                      See all Appointments
-                    </p>
-                    <p class="cursor-pointer">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="28"
-                        height="28"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="#c7cecb"
-                        stroke-width="1.5"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      >
-                        <path d="M9 18l6-6-6-6" />
-                      </svg>
-                    </p>
-                  </div>
-                </main>
-                <main v-else class="flex justify-center items-center flex-col space-y-6 bg-white py-20">
-                  <!-- <div><img src="@/assets/img/empty-state.svg" alt="" /></div> -->
-                  <p style="color : #353F50" class="tracking-wider">
-                    ⏱ No past appointments.
-                  </p>
-                </main>
-              </section>
-            </div>
+  <main class="rounded-lg bg-white border shadow">
+    <div class="flex justify-between items-center bg-[#E6EDFE] py-3 px-6">
+      <p class="lg:text-lg text-[#1E1E1E] font-semibold">
+        Medical Issues
+      </p>
+      <p class="border-b-2 border-gray-700 font-semibold text-xs lg:text-base">
+        See all
+      </p>
+    </div>
+    <section class="p-6 overflow-y-auto h-[470px]">
+      <div>
+        <div class="sm:hidden">
+          <label for="tabs" class="sr-only">Select a tab</label>
+          <!-- Use an "onChange" listener to redirect the user to the selected tab URL. -->
+          <select id="tabs" name="tabs"
+            class="block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
+            <option>Latest Issues</option>
+            <option>Past Issues</option>
+          </select>
+        </div>
+        <div class="hidden sm:block">
+          <div class="border-b border-gray-200">
+            <nav class="-mb-px flex space-x-8" aria-label="Tabs">
+              <!-- Current: "border-indigo-500 text-indigo-600", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" -->
+              <a href="#" class="pb-2 no-underline"
+                :class="[activeTab === 'latest' ? 'border-[#53B3DB] border-b-4 text-gray-800' : 'border-transparent text-gray-500']"
+                @click.prevent="activeTab = 'latest'">
+                Latest Issues</a>
+              <a href="#" class="pb-2 no-underline"
+                :class="[activeTab === 'past' ? 'border-[#53B3DB] border-b-4 text-gray-800' : 'border-transparent text-gray-400']"
+                @click.prevent="activeTab = 'past'">Past
+                Issues</a>
+            </nav>
           </div>
         </div>
       </div>
-    </main>
-  </section>
+
+      <div v-for="itm in 6" :key="itm"
+        class="flex justify-between items-center border-b border-gray-200 last:border-b-0 py-3">
+        <div class="flex items-center gap-x-4 lg:gap-x-6">
+          <div><img src="@/assets/img/avatar.png" class="lg:h-14 lg:w-14 h-10 w-10" alt=""></div>
+          <div class="flex flex-col gap-y-1.5">
+            <p class="py-0 my-0 text-xs lg:text-sm">
+              Mrs Lawal
+            </p>
+            <p class="py-0 my-0 text-xs font-light">
+              Today, 12:30 am - 01:00pm
+            </p>
+            <p class="py-0 my-0 font-semibold text-xs lg:text-sm">
+              Medical complains - Seizures.....
+            </p>
+          </div>
+        </div>
+        <div>
+          <button>
+            <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 24 24" fill="none"
+              stroke="#4a4a4a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 18l6-6-6-6" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
 </template>
 
 <script>
 export default {
-  layout: 'dashboardLayout',
-  data () {
+  data() {
     return {
-      showSidebar: false,
-      user: {},
-      showAppointmentForm: false,
-      upcomingAppointments: [
-        {
-          id: 1,
-          physician: 'Dr. Chuks John',
-          physicianPosition: 'General Practitioner',
-          appointmentDay: 'Tuesday',
-          appointmentDate: '2nd April, 2023',
-          appointmentTime: '8:30 AM'
-
-        },
-        {
-          id: 2,
-          physician: 'Dr. Ann Ogwa',
-          physicianPosition: 'General Practitioner',
-          appointmentDay: 'Tuesday',
-          appointmentDate: '2nd April, 2023',
-          appointmentTime: '8:30 AM'
-
-        }
-      ],
-      pastAppointments: [
-        {
-          id: 1,
-          physician: 'Dr. Chuks John',
-          physicianPosition: 'General Practitioner',
-          appointmentDay: 'Tuesday',
-          appointmentDate: '2nd April, 2023',
-          appointmentTime: '8:30 AM'
-
-        },
-        {
-          id: 2,
-          physician: 'Dr. Remmy Manny',
-          physicianPosition: 'Cardiologist',
-          appointmentDay: 'Saturday',
-          appointmentDate: '6th April, 2023',
-          appointmentTime: '11:00 AM'
-
-        }
-      ],
-      notifications: [
-      ],
-      currentTab: 'Upcoming',
-      // appointments: ['Upcoming', 'Past'],
-      appointments: [{
-        name: 'Upcoming Appointment',
-        value: 'Upcoming'
-      }, {
-        name: 'Past Appointment',
-        value: 'Past'
-      }],
-      homeTabs: ['Overview', 'Messages'],
-      activeHomeTab: 'Overview'
-    }
-  },
-  mounted () {
-    const user = localStorage.getItem('user')
-    this.user = user ? JSON.parse(user) : ''
-    if (this.user) {
-      console.log(this.user)
-    } else {
-      this.$router.push('/')
-    }
-  },
-  methods: {
-    toggleSidebar () {
-      console.log('clicked')
-      this.showSidebar = !this.showSidebar
-    },
-    toggleAppointmentForm () {
-      this.showAppointmentForm = !this.showAppointmentForm
+      activeTab: 'latest'
     }
   }
 }
 </script>
-
-<style></style>

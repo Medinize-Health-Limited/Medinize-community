@@ -58,6 +58,11 @@ export default {
           path: '/dashboard'
         },
         {
+          name: 'Patients',
+          icon: 'patients',
+          path: '/dashboard/patients'
+        },
+        {
           name: 'Services',
           icon: 'services',
           path: '/dashboard/services'
