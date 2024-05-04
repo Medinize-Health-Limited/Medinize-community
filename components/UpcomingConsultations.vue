@@ -1,6 +1,6 @@
 <template>
   <div class="flow-root bg-white rounded-lg py-6 space-y-6">
-    <div class="flex justify-between items-center px-2 lg:px-10">
+    <div class="flex justify-between items-center lg:px-2 px-10">
       <p class="text-[#000000] font-medium">Upcoming</p>
       <p class="font-medium text-[#082280] border-b border-[#082280] text-sm">View all</p>
     </div>

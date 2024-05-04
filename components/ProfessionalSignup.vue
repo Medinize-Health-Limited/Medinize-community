@@ -1,24 +1,115 @@
 <template>
   <section>
-    <div class="grid mt-4 md:mt-10 mb-4">
-      <form class="flex justify-center items-center flex-col space-y-8 w-11/12 mx-auto lg:w-[500px]"
-        @submit.prevent="handleSignup">
+    <div v-if="activeStep === 'base'" class="grid grid-cols-2 gap-x-20 w-10/12 mx-auto pt-20">
+      <section class="relative">
+        <div class="absolute w-full top-0">
+          <img src="@/assets/img/logo.png" class="h-20 w-44" alt="logo">
+        </div>
+        <img src="@/assets/img/professional.png">
+        <div class="absolute w-full bottom-0 p-10">
+          <div>
+            <div class="pb-6">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="24" y="24" width="24" height="24" rx="4" transform="rotate(180 24 24)" fill="#0C9609" />
+                <path d="M18 7H15L13 11V17H19V11H16L18 7ZM10 7H7L5 11V17H11V11H8L10 7Z" fill="white" />
+              </svg>
+            </div>
+
+            <p class="text-white font-light">
+              “Medinize transformed how I connect with patients! Remote consultations and
+              a user-friendly platform make
+              appointments a breeze for both me and them. Top-notch support ensures a smooth experience. Highly
+              recommend
+              for expanding your telemedicine options!”
+            </p>
+            <p class="text-white font-semibold">
+              Jumoke Adebowale - Gynecologist
+            </p>
+          </div>
+        </div>
+      </section>
+      <form class="pt-2 space-y-10" @submit.prevent="handleSignup">
         <div>
-          <h1 class="text-2xl text-[#0A7D08] font-bold text-center">
-            Create a professional account with Medinize
+          <h1 class="text-3xl text-[#0A0A0A] font-semibold">
+            Sign up
           </h1>
-          <p class="text-sm md:text-sm text-gray-500 text-center">
-            {{ activeStep === 'base' ? `Hey! Set up your account to embark on this journey` : `Hey! upload this
+          <p class="text-gray-500 font-light max-w-lg leading-relaxed">
+            {{ activeStep === 'base' ? `Enter your details below and kindly make sure they match with your certificate
+            details` : `Hey! upload this
             necessary document to finish up your sign up` }}
           </p>
         </div>
-        <div v-if="activeStep === 'base'" class="space-y-6 w-11/12 mx-auto lg:w-[500px]">
-          <div class="w-full">
-            <label for="email" class="sr-only" />
-            <input id="email" v-model="form.email" type="email"
-              class="py-3 rounded-md w-full px-3 border outline-none border-gray-300" placeholder="Enter Email address">
+        <div v-if="activeStep === 'base'" class="space-y-6">
+          <div class="flex w-full space-x-10 ">
+            <div class="relative w-full">
+              <label for="name"
+                class="absolute -top-2 left-2 inline-block bg-white px-1 text-sm font-light text-[#696969]">First
+                Name</label>
+              <input id="name" v-model="form.first_name" type="text" name="name"
+                class="block w-full rounded-md border border-gray-100 py-2.5 text-[#696969]  outline-none px-3 placeholder:font-light placeholder:text-sm placeholder:text-gray-400">
+            </div>
+
+            <div class="relative w-full">
+              <label for="name"
+                class="absolute -top-2 left-2 inline-block bg-white px-1 text-sm font-light text-[#696969]">Last
+                Name</label>
+              <input id="name" v-model="form.last_name" type="text" name="name"
+                class="block w-full rounded-md border border-gray-100 py-2.5 text-[#696969]  outline-none px-3 placeholder:font-light placeholder:text-sm placeholder:text-gray-400">
+            </div>
           </div>
-          <div class="w-full">
+
+          <div class="relative">
+            <label for="name"
+              class="absolute -top-2 left-2 inline-block bg-white px-1 text-sm font-light text-[#696969]">Email</label>
+            <input id="name" v-model="form.email" type="email" name="name"
+              class="block w-full rounded-md border border-gray-100 py-2.5 text-[#696969]  outline-none px-3 placeholder:font-light placeholder:text-sm placeholder:text-gray-400">
+          </div>
+
+          <div class="relative">
+            <label for="name"
+              class="absolute -top-2 left-2 inline-block bg-white px-1 text-sm font-light text-[#696969]">Phone Number
+              Name</label>
+            <input id="name" v-model="form.phone_number" name="name" type="tel"
+              class="block w-full rounded-md border border-gray-100 py-2.5 text-[#696969]  outline-none px-3 placeholder:font-light placeholder:text-sm placeholder:text-gray-400">
+          </div>
+
+          <div class="flex w-full space-x-10">
+            <div class="relative w-full">
+              <label for="name"
+                class="absolute -top-2 left-2 inline-block bg-white px-1 text-sm font-light text-[#696969]">Gender</label>
+              <select id="name" v-model="form.gender" type="text" name="name"
+                class="block w-full rounded-md border border-gray-100 py-2.5 text-[#696969]  outline-none px-3 placeholder:font-light placeholder:text-sm placeholder:text-gray-400">
+                <option value="male">
+                  Male
+                </option>
+                <option value="female">
+                  Female
+                </option>
+              </select>
+            </div>
+
+            <div class="relative w-full">
+              <label for="name"
+                class="absolute -top-2 left-2 inline-block bg-white px-1 text-sm font-light text-[#696969]">Date Of
+                Birth</label>
+              <input id="name" v-model="form.date_of_birth" type="date" name="date"
+                class="block w-full rounded-md border border-gray-100 py-2.5 text-[#696969]  outline-none px-3 placeholder:font-light placeholder:text-sm placeholder:text-gray-400">
+            </div>
+          </div>
+
+          <div class="relative">
+            <label for="name"
+              class="absolute -top-2 left-2 inline-block bg-white px-1 text-sm font-light text-[#696969]">Password</label>
+            <input id="name" v-model="form.password" type="text" name="name"
+              :type="is_password_eye_open ? 'text' : 'password'"
+              class="block w-full rounded-md border border-gray-100 py-3 text-[#696969]  outline-none px-3 placeholder:font-light placeholder:text-sm placeholder:text-gray-400">
+            <div class="absolute right-6 top-4 ">
+              <img :src="require(`@/assets/icons/${togglePasswordEye}.svg`)" alt="" class="h-6 w-6 cursor-pointer"
+                @click="is_password_eye_open = !is_password_eye_open">
+            </div>
+          </div>
+
+          <!-- <div class="w-full">
             <label for="phone" class="sr-only" />
             <input id="phone" v-model="form.phone_number" type="tel"
               class="py-3 rounded-md w-full px-3 border outline-none border-gray-300" placeholder="Enter phone number">
@@ -64,117 +155,205 @@
               <img :src="require(`@/assets/icons/${togglePasswordEye}.svg`)" alt="" class="h-6 w-6 cursor-pointer"
                 @click="is_password_eye_open = !is_password_eye_open">
             </div>
-          </div>
+          </div> -->
           <div class="w-full">
             <button :class="[!isFormValid || processing ? 'cursor-not-allowed opacity-25' : '']" type="button"
               :disabled="!isFormValid || processing"
-              class="text-white text-xs md:text-sm md:py-3 py-3 rounded-lg text-center w-full  bg-[#0A7D08]"
+              class="text-white text-sm md:text-sm md:py-3 py-2.5 w-4/12 rounded-lg text-center bg-[#064B05]"
               @click="activeStep = 'upload'">
-              {{ processing ? 'processing...' : 'Next' }}
+              {{ processing ? 'processing...' : 'Proceed' }}
             </button>
+            <p class="font-light text-sm pt-3">
+              Not a professional? <nuxt-link to="#" class="text-[#0C9609] font-semibold"
+                @click.prevent="handleSelectedSignup('patient')">
+                Sign up as a customer
+              </nuxt-link>
+            </p>
           </div>
-        </div>
-        <div v-if="activeStep === 'upload'" class="space-y-6 w-11/12 mx-auto lg:w-[500px]">
-          <div class="">
-            <label for="utilityBill" class="cursor-pointer w-full">
-              <div v-if="!selectedUtilityBill" class="w-full rounded-md">
-                <div class="flex justify-between items-center border rounded-lg border-gray-400 px-6">
-                  <p class="text-[#676767] pt-3">Practicing License </p>
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 15V2M12 2L15 5.5M12 2L9 5.5" stroke="#1E1E1E" stroke-opacity="0.7" stroke-width="1.5"
-                      stroke-linecap="round" stroke-linejoin="round" />
-                    <path
-                      d="M8 22H16C18.828 22 20.243 22 21.121 21.122C22 20.242 22 18.829 22 16V15C22 12.172 22 10.758 21.121 9.87895C20.353 9.11095 19.175 9.01395 17 9.00195M7 9.00195C4.825 9.01395 3.647 9.11095 2.879 9.87895C2 10.758 2 12.172 2 15V16C2 18.829 2 20.243 2.879 21.122C3.179 21.422 3.541 21.619 4 21.749"
-                      stroke="#1E1E1E" stroke-opacity="0.7" stroke-width="1.5" stroke-linecap="round" />
-                  </svg>
-                  <label for=""
-                    class="relative cursor-pointer hidden rounded-md w-full bg-white font-semibold  focus-within:outline-none">
-                    <input id="utilityBill" accept=".pdf,.png,.jpg,.jpeg,.gif" type="file" class="w-full sr-only"
-                      @change="handleProfessionalCertificateUpload">
-                  </label>
-                </div>
-              </div>
-            </label>
-            <div class="flex gap-x-3 items-center">
-              <div v-if="!isPdf && selectedUtilityBill" class="w-full">
-                <img :src="selectedUtilityBill" alt="Selected Image"
-                  class="w-full h-44 object-center object-cover border-dotted border border-gray-400 rounded-lg">
-                <label for="utilityBill"
-                  class="cursor-pointer border-b text-[#3990E5] border-[#3990E5] pb-0.5 pt-3 font-semibold">
-                  Update Practicing License
-                  <input id="utilityBill" accept="image/*,.pdf" type="file" class="hidden"
-                    @change="handleProfessionalCertificateUpload">
-                </label>
-              </div>
-              <div v-if="isPdf && selectedUtilityBill">
-                <iframe :src="selectedUtilityBill" class="mt-2" style="width: 100%; height: 500px;" />
-                <label for="utilityBill"
-                  class="cursor-pointer border-b text-[#3990E5] border-[#3990E5] pb-0.5 pt-3 font-semibold">
-                  Update Practicing License
-                  <input id="utilityBill" accept="image/*,.pdf" type="file" class="hidden"
-                    @change="handleProfessionalCertificateUpload">
-                </label>
-              </div>
-              <div v-if="docfileError" class="error text-red-500 text-xs pt-2 font-medium">
-                {{ docfileError }}
-              </div>
-            </div>
-          </div>
-
-          <div class="">
-            <label for="identityDocument" class="cursor-pointer w-full">
-              <div v-if="!selectedDocument" class="w-full">
-                <div class="flex justify-between items-center border rounded-lg border-gray-400 px-6">
-                  <p class="text-[#676767] pt-3">Professional Certificate</p>
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 15V2M12 2L15 5.5M12 2L9 5.5" stroke="#1E1E1E" stroke-opacity="0.7" stroke-width="1.5"
-                      stroke-linecap="round" stroke-linejoin="round" />
-                    <path
-                      d="M8 22H16C18.828 22 20.243 22 21.121 21.122C22 20.242 22 18.829 22 16V15C22 12.172 22 10.758 21.121 9.87895C20.353 9.11095 19.175 9.01395 17 9.00195M7 9.00195C4.825 9.01395 3.647 9.11095 2.879 9.87895C2 10.758 2 12.172 2 15V16C2 18.829 2 20.243 2.879 21.122C3.179 21.422 3.541 21.619 4 21.749"
-                      stroke="#1E1E1E" stroke-opacity="0.7" stroke-width="1.5" stroke-linecap="round" />
-                  </svg>
-                  <label for="" class="relative cursor-pointer hidden rounded-md bg-white font-semibold">
-                    <input id="identityDocument" accept=".pdf,.png,.jpg,.jpeg,.gif" type="file" class="sr-only"
-                      @change="handlePracticingLicenseUpload">
-                  </label>
-                </div>
-              </div>
-            </label>
-            <div class="flex gap-x-3 items-center">
-              <div v-if="!isPdf && selectedDocument" class="w-full">
-                <img :src="selectedDocument" alt="Selected Image"
-                  class="w-full h-44 object-center object-cover border-dotted border border-gray-400 rounded-lg">
-                <label for="identityDocument"
-                  class="cursor-pointer border-b text-[#3990E5] border-[#3990E5] pb-0.5 pt-3 font-semibold">
-                  Update Professional Certificate
-                  <input id="identityDocument" accept="image/*,.pdf" type="file" class="hidden"
-                    @change="handlePracticingLicenseUpload">
-                </label>
-              </div>
-              <div v-if="isPdf && selectedDocument">
-                <iframe :src="selectedDocument" class="mt-2" style="width: 100%; height: 500px;" />
-                <label for="identityDocument"
-                  class="cursor-pointer border-b text-[#3990E5] border-[#3990E5] pb-0.5 pt-3 font-semibold">
-                  Update Professional Certificate
-                  <input id="identityDocument" accept="image/*,.pdf" type="file" class="hidden"
-                    @change="handlePracticingLicenseUpload">
-                </label>
-              </div>
-              <div v-if="docError" class="error text-red-500 text-xs pt-2 font-medium">
-                {{ docError }}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div v-if="activeStep === 'upload'" class="w-11/12">
-          <button :class="[!isUploadFormValid || processing ? 'cursor-not-allowed opacity-25' : '']" type="submit"
-            :disabled="!isUploadFormValid || processing"
-            class="text-white text-sm md:text-sm md:py-3 py-3 rounded-lg text-center w-full  bg-[#0A7D08]">
-            {{ processing ? 'processing...' : 'Create an Account' }}
-          </button>
         </div>
       </form>
+    </div>
+    <div v-if="activeStep === 'upload'" class="max-w-2xl mx-auto space-y-8 rounded-lg bg-white p-4 border mt-16">
+      <h1 class="py-0 my-0 font-semibold">Almost there!</h1>
+      <p class="py-0 my-0">We just need a few more details to get you started.</p>
+      <div class="w-full">
+        <img src="@/assets/img/upload.png" class="h- w-60 object-cover object-center" alt="">
+      </div>
+      <div class="flex w-full space-x-10 ">
+        <div class="relative w-full">
+          <label for="name"
+            class="absolute -top-2 left-2 inline-block bg-white px-1 text-sm font-light text-[#696969]">Name of
+            Profession</label>
+          <input id="name" v-model="form.first_name" type="text" name="name"
+            class="block w-full rounded-md border border-gray-100 py-2.5 text-[#696969]  outline-none px-3 placeholder:font-light placeholder:text-sm placeholder:text-gray-400">
+        </div>
+
+        <div class="relative w-full">
+          <label for="name"
+            class="absolute -top-2 left-2 inline-block bg-white px-1 text-sm font-light text-[#696969]">Expertise</label>
+          <input id="name" v-model="form.last_name" type="text" name="name"
+            class="block w-full rounded-md border border-gray-100 py-2.5 text-[#696969]  outline-none px-3 placeholder:font-light placeholder:text-sm placeholder:text-gray-400">
+        </div>
+      </div>
+
+      <div class="flex w-full space-x-10">
+        <div class="relative w-full">
+          <label for="name"
+            class="absolute -top-2 left-2 inline-block bg-white px-1 text-sm font-light text-[#696969]">Years of
+            Practice</label>
+          <select id="name" v-model="form.gender" type="text" name="name"
+            class="block w-full rounded-md border border-gray-100 py-2.5 text-[#696969]  outline-none px-3 placeholder:font-light placeholder:text-sm placeholder:text-gray-400">
+            <option value="male">
+              Male
+            </option>
+            <option value="female">
+              Female
+            </option>
+          </select>
+        </div>
+
+        <div class="relative w-full">
+          <label for="name"
+            class="absolute -top-2 left-2 inline-block bg-white px-1 text-sm font-light text-[#696969]">Nationality</label>
+          <select id="name" v-model="form.gender" type="text" name="name"
+            class="block w-full rounded-md border border-gray-100 py-2.5 text-[#696969]  outline-none px-3 placeholder:font-light placeholder:text-sm placeholder:text-gray-400">
+            <option value="male">
+              Male
+            </option>
+            <option value="female">
+              Female
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="text-gray-700 sm:col-span-2">
+        <div class="flex items-center gap-x-4 w-full">
+          <div class="space-y-1 w-full relative">
+            <label for="name"
+              class="absolute -top-2 left-2 inline-block bg-white px-1 text-sm font-light text-[#696969]">Address</label>
+            <input v-model="form.address_street" type="text" placeholder="Home Address"
+              class="block w-full rounded-md border border-gray-100 py-2.5 text-[#696969]  outline-none px-3 placeholder:font-light placeholder:text-sm placeholder:text-gray-400"
+              @input="handleInput" @blur="closeDropdown">
+          </div>
+        </div>
+        <div>
+          <ul v-if="showDropdown && !loadingLocations && searchResults?.length"
+            class=" z-10 w-full border bg-white border-gray-300 rounded-b shadow-lg pl-0 ml-0">
+            <li v-for="address in searchResults" :key="address.id" class="p-2 cursor-pointer hover:bg-gray-100"
+              @click="selectAddress(address)">
+              {{ address.formatted }}
+            </li>
+          </ul>
+          <div v-else-if="loadingLocations && !searchResults?.length && !showDropdown">
+            <div class="h-full bg-red-300">
+              <div class="h-10 bg-slate-100 rounded animate-pulse" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="space-y-6">
+        <div class="">
+          <label for="utilityBill" class="cursor-pointer w-full">
+            <div v-if="!selectedUtilityBill" class="w-full rounded-md">
+              <div class="flex justify-between items-center border rounded-lg border-gray-400 px-6 relative">
+                <p class="text-[#676767] pt-3">Practicing License </p>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 15V2M12 2L15 5.5M12 2L9 5.5" stroke="#1E1E1E" stroke-opacity="0.7" stroke-width="1.5"
+                    stroke-linecap="round" stroke-linejoin="round" />
+                  <path
+                    d="M8 22H16C18.828 22 20.243 22 21.121 21.122C22 20.242 22 18.829 22 16V15C22 12.172 22 10.758 21.121 9.87895C20.353 9.11095 19.175 9.01395 17 9.00195M7 9.00195C4.825 9.01395 3.647 9.11095 2.879 9.87895C2 10.758 2 12.172 2 15V16C2 18.829 2 20.243 2.879 21.122C3.179 21.422 3.541 21.619 4 21.749"
+                    stroke="#1E1E1E" stroke-opacity="0.7" stroke-width="1.5" stroke-linecap="round" />
+                </svg>
+                <label for=""
+                  class="absolute -top-2 left-2 inline-block bg-white px-1 text-sm font-light text-[#696969]">
+                  <input id="utilityBill" accept=".pdf,.png,.jpg,.jpeg,.gif" type="file"
+                    class="block w-full rounded-md border border-gray-100 py-2.5 text-[#696969]  outline-none px-3 placeholder:font-light placeholder:text-sm placeholder:text-gray-400 sr-only"
+                    @change="handleProfessionalCertificateUpload">
+                </label>
+              </div>
+            </div>
+          </label>
+          <div class="flex gap-x-3 items-center">
+            <div v-if="!isPdf && selectedUtilityBill" class="w-full">
+              <img :src="selectedUtilityBill" alt="Selected Image"
+                class="w-full h-44 object-center object-cover border-dotted border border-gray-400 rounded-lg">
+              <label for="utilityBill"
+                class="cursor-pointer border-b text-[#3990E5] border-[#3990E5] pb-0.5 pt-3 font-semibold">
+                Update Practicing License
+                <input id="utilityBill" accept="image/*,.pdf" type="file" class="hidden"
+                  @change="handleProfessionalCertificateUpload">
+              </label>
+            </div>
+            <div v-if="isPdf && selectedUtilityBill">
+              <iframe :src="selectedUtilityBill" class="mt-2" style="width: 100%; height: 500px;" />
+              <label for="utilityBill"
+                class="cursor-pointer border-b text-[#3990E5] border-[#3990E5] pb-0.5 pt-3 font-semibold">
+                Update Practicing License
+                <input id="utilityBill" accept="image/*,.pdf" type="file" class="hidden"
+                  @change="handleProfessionalCertificateUpload">
+              </label>
+            </div>
+            <div v-if="docfileError" class="error text-red-500 text-xs pt-2 font-medium">
+              {{ docfileError }}
+            </div>
+          </div>
+        </div>
+
+        <div class="">
+          <label for="identityDocument" class="cursor-pointer w-full">
+            <div v-if="!selectedDocument" class="w-full">
+              <div class="flex justify-between items-center border rounded-lg border-gray-400 px-6">
+                <p class="text-[#676767] pt-3">Professional Certificate</p>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 15V2M12 2L15 5.5M12 2L9 5.5" stroke="#1E1E1E" stroke-opacity="0.7" stroke-width="1.5"
+                    stroke-linecap="round" stroke-linejoin="round" />
+                  <path
+                    d="M8 22H16C18.828 22 20.243 22 21.121 21.122C22 20.242 22 18.829 22 16V15C22 12.172 22 10.758 21.121 9.87895C20.353 9.11095 19.175 9.01395 17 9.00195M7 9.00195C4.825 9.01395 3.647 9.11095 2.879 9.87895C2 10.758 2 12.172 2 15V16C2 18.829 2 20.243 2.879 21.122C3.179 21.422 3.541 21.619 4 21.749"
+                    stroke="#1E1E1E" stroke-opacity="0.7" stroke-width="1.5" stroke-linecap="round" />
+                </svg>
+                <label for="" class="relative cursor-pointer hidden rounded-md bg-white font-semibold">
+                  <input id="identityDocument" accept=".pdf,.png,.jpg,.jpeg,.gif" type="file" class="sr-only"
+                    @change="handlePracticingLicenseUpload">
+                </label>
+              </div>
+            </div>
+          </label>
+          <div class="flex gap-x-3 items-center">
+            <div v-if="!isPdf && selectedDocument" class="w-full">
+              <img :src="selectedDocument" alt="Selected Image"
+                class="w-full h-44 object-center object-cover border-dotted border border-gray-400 rounded-lg">
+              <label for="identityDocument"
+                class="cursor-pointer border-b text-[#3990E5] border-[#3990E5] pb-0.5 pt-3 font-semibold">
+                Update Professional Certificate
+                <input id="identityDocument" accept="image/*,.pdf" type="file" class="hidden"
+                  @change="handlePracticingLicenseUpload">
+              </label>
+            </div>
+            <div v-if="isPdf && selectedDocument">
+              <iframe :src="selectedDocument" class="mt-2" style="width: 100%; height: 500px;" />
+              <label for="identityDocument"
+                class="cursor-pointer border-b text-[#3990E5] border-[#3990E5] pb-0.5 pt-3 font-semibold">
+                Update Professional Certificate
+                <input id="identityDocument" accept="image/*,.pdf" type="file" class="hidden"
+                  @change="handlePracticingLicenseUpload">
+              </label>
+            </div>
+            <div v-if="docError" class="error text-red-500 text-xs pt-2 font-medium">
+              {{ docError }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="w-11/12">
+        <button :class="[!isUploadFormValid || processing ? 'cursor-not-allowed opacity-25' : '']" type="submit"
+          :disabled="!isUploadFormValid || processing"
+          class="text-white text-sm md:text-sm font-semibold md:py-3 py-3 rounded-lg text-center w-4/12  bg-[#0A7D08]">
+          {{ processing ? 'processing...' : 'Sign up' }}
+        </button>
+      </div>
     </div>
   </section>
 </template>
@@ -202,7 +381,7 @@ export default {
       showPassword: false,
       selected: null,
       countryFlag: '',
-      activeStep: 'base',
+      activeStep: 'upload',
       docError: null,
       docfileError: null,
       options: [],
@@ -251,10 +430,13 @@ export default {
     }
   },
   methods: {
+    handleSelectedSignup() {
+      this.$router.push({ path: '/signup-options', query: { user: 'patient' } })
+    },
     handleSignup() {
       this.processing = true
       this.$axios
-        .post('https://geziwmna3v.us-west-2.awsapprunner.com/signup/', this.form)
+        .post('https://medinizebackend.onrender.com/signup/', this.form)
         .then((res) => {
           this.$toastr.s('Signup was successful')
           this.$router.push('/')

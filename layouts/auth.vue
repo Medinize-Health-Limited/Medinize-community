@@ -1,7 +1,7 @@
 <template>
   <main class="app">
     <AuthHeader />
-    <div class="w-11/12 lg:w-4/12 mx-auto">
+    <div class="w-11/12 mx-auto">
       <nuxt />
     </div>
   </main>
