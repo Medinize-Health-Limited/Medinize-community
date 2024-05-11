@@ -148,7 +148,7 @@
       </section>
     </section> -->
     <main class="">
-      <section class="lg:p-[60px] space-y-8 mt-10 lg:mt-10">
+      <section class="lg:px-[20px] space-y-8 mt-10 lg:mt-10">
         <h1 class="font-semibold text-lg md:text-2xl">
           Medinize Communities
         </h1>
@@ -196,7 +196,7 @@
           <div class="flex justify-center items-center">
             <button :disabled="!isAggrementTicked"
               class="bg-[#064B05] disabled:cursor-not-allowed opacity-25 text-white font-semibold px-6 py-2.5 rounded-md"
-              @click="isModalVisible = false">
+              @click="handleConfirmationTick">
               Join community
             </button>
           </div>
@@ -212,7 +212,7 @@ export default {
   components: {
     TermsModal
   },
-  data () {
+  data() {
     return {
       isModalVisible: false,
       isAggrementTicked: false,
@@ -314,7 +314,20 @@ export default {
     ]
   },
   mounted() {
-    this.isModalVisible = true
+    const isTermsChecked = JSON.parse(sessionStorage.getItem('acceptCommunityTerms'))
+    if (isTermsChecked) {
+      this.isModalVisible = false
+    } else {
+      this.isModalVisible = true
+    }
+    console.log(typeof isTermsChecked, 'here')
+    // if(sessionStorage)
+  },
+  methods: {
+    handleConfirmationTick() {
+      this.isModalVisible = false
+      sessionStorage.setItem('acceptCommunityTerms', true)
+    }
   }
 }
 </script>

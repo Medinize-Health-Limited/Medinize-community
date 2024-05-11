@@ -41,7 +41,6 @@ export default {
   },
   methods: {
     toggleExpand () {
-      console.log('you clicked')
       this.isExpanded = !this.isExpanded
     }
   }

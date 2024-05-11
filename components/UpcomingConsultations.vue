@@ -1,10 +1,10 @@
 <template>
   <div class="flow-root bg-white rounded-lg py-6 space-y-6">
-    <div class="flex justify-between items-center lg:px-2 px-10">
+    <div class="flex justify-between items-center lg:px-6 px-10">
       <p class="text-[#000000] font-medium">Upcoming</p>
       <p class="font-medium text-[#082280] border-b border-[#082280] text-sm">View all</p>
     </div>
-    <ul role="list" class="-mb-8 pl-0 ml-0 md:ml-auto">
+    <ul role="list" class="-mb-8 pl-0 lg:px-4 ml-0 md:ml-auto">
       <li>
         <div class="relative pb-8">
           <span class="absolute left-5 top-5 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true" />

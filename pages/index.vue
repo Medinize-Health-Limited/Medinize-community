@@ -6,9 +6,21 @@
           <h1 class="text-2xl text-[#0A7D08] font-bold text-center">
             Sign in to Medinize
           </h1>
-          <p class="text-sm text-gray-500">
+          <p class="text-sm text-gray-500 text-center">
             Welcome back! Please enter your details.
           </p>
+          <div class="flex justify-center items-center">
+            <label for="Toggle1" class="inline-flex items-center space-x-4 cursor-pointer text-gray-600">
+              <span>Patient</span>
+              <span class="relative">
+                <input id="Toggle1" type="checkbox" class="hidden peer" @change="handleChange">
+                <div class="w-10 h-6 rounded-full shadow-inner dark:bg-gray-400 peer-checked:dark:bg-[#0A7D08]" />
+                <div
+                  class="absolute inset-y-0 left-0 w-4 h-4 m-1 rounded-full shadow peer-checked:right-0 peer-checked:left-auto dark:bg-white" />
+              </span>
+              <span>Professional</span>
+            </label>
+          </div>
         </div>
         <div class="w-full">
           <input v-model="form.email" type="email"
@@ -57,9 +69,21 @@ export default {
     }
   },
   methods: {
+    handleChange(e) {
+      const status = e.target.checked
+      if (status) {
+        this.$router.push({ to: this.$route.path, query: { type: 'professional' } })
+      } else {
+        this.$router.push({ to: this.$route.path, query: { type: 'patient' } })
+      }
+    },
     handleLogin() {
       this.processing = true
-      this.$axios.post('https://medinizebackend.onrender.com/login/', this.form).then((res) => {
+      const lookupUrl = {
+        patient: 'https://medinizebackend.onrender.com/patient/login/',
+        professional: 'https://medinizebackend.onrender.com/professional/login/'
+      }
+      this.$axios.post(lookupUrl[this.$route.query.type], this.form).then((res) => {
         if (process.client) {
           localStorage.setItem('user', JSON.stringify(res.data))
         }
@@ -72,6 +96,19 @@ export default {
         this.processing = false
       })
     }
+  },
+  mounted() {
+    // Get the current query parameters
+    const currentParams = new URLSearchParams(window.location.search);
+
+    // Add or update your desired query parameter
+    currentParams.set('type', 'patient');
+
+    // Construct the updated URL with the modified query parameters
+    const updatedUrl = `${window.location.pathname}?${currentParams.toString()}`;
+
+    // Replace the current URL with the updated one
+    window.history.replaceState({}, '', updatedUrl);
   }
 }
 </script>

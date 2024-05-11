@@ -7,45 +7,59 @@
 
       <ul class="-mt-4">
         <li v-for="(item, index) in sidebarItems" :key="index" class="pr-6 rounded-md">
-          <nuxt-link :to="item.path" :class="[item.path === $route.path ? 'bg-green-100' : '']" href=""
+          <nuxt-link
+            :to="item.path"
+            :class="[item.path === $route.path ? 'bg-green-100' : '']"
+            href=""
             class="px-4 py-3 text-sm font-light text-gray-700 flex justify-between items-center no-underline"
-            @click.native="handleCommunitiesToggle(item)">
+            @click.native="handleCommunitiesToggle(item)"
+          >
             <div class="flex items-center gap-x-2 w-[100%]">
               <img :src="require(`~/assets/icons/${item.icon}.svg`)" alt="">
               <span> {{ item.name }}</span>
             </div>
           </nuxt-link>
-          <div v-if="item.name === 'Communities'">
-        <li>
-          <div v-if="showCommunities">
-            <ul id="sub-menu-2" class="mt-1 px-2">
-              <li v-for="itm in communities">
-                <!-- 44px -->
-                <nuxt-link :to="itm.path" @click.native="showCommunities = false"
-                  class="hover:bg-gray-50 block no-underline rounded-md py-2 pr-2 pl-9 text-xs leading-6 text-gray-700">GraphQL
-                  {{ itm.title }}</nuxt-link>
-              </li>
-            </ul>
+          <div v-if="item.name === 'Communities'" class="relative">
+            <li>
+              <div v-if="showCommunities" class="z-50 absolute right-0 inset-x-0 top-0">
+                <ul
+                  id="sub-menu-2"
+                  class="mt-1 px-2 bg-white shadow-md border-[0.6px] border-gray-100 h-72 overflow-y-auto"
+                >
+                  <li v-for="itm in communities" class="w-full">
+                    <!-- 44px -->
+                    <nuxt-link
+                      :to="itm.path"
+                      class="hover:bg-gray-100 block no-underline w-full rounded-md py-2 px-2 text-xs leading-6 text-gray-700"
+                      @click.native="showCommunities = false"
+                    >
+                      GraphQL
+                      {{ itm.title }}
+                    </nuxt-link>
+                  </li>
+                </ul>
+              </div>
+            </li>
           </div>
         </li>
-    </div>
-    </li>
-    </ul>
+      </ul>
 
-    <div class="ml-14">
-      <button class="text-red-500 font-medium flex items-center gap-x-2">
-        <img src="~/assets/icons/logout.svg" alt="logout icon">
-        <span> Logout </span>
-      </button>
+      <div class="ml-14">
+        <button class="text-red-500 font-medium flex items-center gap-x-2" @click="handleLogout">
+          <img src="~/assets/icons/logout.svg" alt="logout icon">
+          <span> Logout </span>
+        </button>
+      </div>
     </div>
-  </div>
   </div>
 </template>
 
 <script>
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/src/sweetalert2.scss'
 import { getCommunities } from '@/services/post'
 export default {
-  data() {
+  data () {
     return {
       user: null,
       loadingCommunities: false,
@@ -95,7 +109,7 @@ export default {
         {
           name: 'Communities',
           icon: 'communities',
-          path: '/dashboard/communities'
+          path: ''
         },
         {
           name: 'Notifications',
@@ -162,7 +176,7 @@ export default {
       ]
     }
   },
-  mounted() {
+  mounted () {
     this.user = window.localStorage.getItem('user')
     if (this.user === null) {
       this.$router.push('/')
@@ -171,7 +185,7 @@ export default {
     this.loadCommunities()
   },
   methods: {
-    async loadCommunities() {
+    async loadCommunities () {
       this.loadingCommunities = true
       try {
         const response = await getCommunities()
@@ -182,10 +196,29 @@ export default {
         this.loadingCommunities = false
       }
     },
-    handleCommunitiesToggle(item) {
+    handleCommunitiesToggle (item) {
       if (item.name === 'Communities') {
         this.showCommunities = !this.showCommunities
       }
+    },
+    handleLogout () {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, logout!',
+        cancelButtonText: 'Nah, Just Kidding.'
+      }).then((result) => {
+        if (result.value) {
+          this.$router.push('/')
+          // window.open('https://medinize.netlify.app/', '_self')
+        } else {
+          this.$swal('Cancelled', "You're still logged in!", 'info')
+        }
+      })
     }
   }
 }

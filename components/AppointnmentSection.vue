@@ -74,3 +74,9 @@ export default {
   }
 }
 </script>
+<style>
+  /* Hide the default scrollbar */
+  ::-webkit-scrollbar {
+    display: none;
+  }
+</style>
